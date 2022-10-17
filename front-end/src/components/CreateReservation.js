@@ -36,7 +36,7 @@ function CreateReservation() {
     event.preventDefault();
     
     //const abortController = new AbortController();
-    //setErrors([])
+    setErrors([])
     await createReservation(formData);
     history.push(`/dashboard?date=${formData.reservation_date}`);
 

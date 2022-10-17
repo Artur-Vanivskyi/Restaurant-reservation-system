@@ -14,10 +14,10 @@ const REQUIRED_PROPERTIES = [
 ];
 
 async function list(req, res) {
-  // const today = new Date().toLocaleDateString().replaceAll("/", "-");
+  const today = new Date().toLocaleDateString().replaceAll("/", "-");
   const  reservation_date  = req.query.date;
   
-  const reservation = await service.list(reservation_date);
+  const reservation = await service.list(reservation_date ? reservation_date : today);
   console.log(reservation_date)
   res.json({ data: reservation });
 }
