@@ -14,19 +14,26 @@ const REQUIRED_PROPERTIES = [
 ];
 
 async function list(req, res) {
-  const today = new Date().toLocaleDateString().replaceAll("/", "-");
-  const { date = today } = req.query;
-  const reservation = await service.list(date);
+  // const today = new Date().toLocaleDateString().replaceAll("/", "-");
+  const  reservation_date  = req.query.date;
+  
+  const reservation = await service.list(reservation_date);
+  console.log(reservation_date)
   res.json({ data: reservation });
 }
 
-function hasProperties(...properties) {
+function hasProperties(properties) {
+  // console.log("HEY", properties)
   return function (req, res, next) {
     const { data = {} } = req.body;
 
     try {
       properties.forEach((property) => {
+        // console.log("LOOK HERE", !data[property])
+        // console.log("HERE", data, property)
+        
         if (!data[property]) {
+          // console.log("HERE IN STATEMENT", data, property)
           const error = new Error(`A '${property}' property is required.`);
           error.status = 400;
           throw error;
@@ -34,7 +41,9 @@ function hasProperties(...properties) {
       });
       next();
     } catch (error) {
+      console.log("-----------", error)
       next(error);
+      
     }
   };
 }
@@ -43,7 +52,9 @@ const hasRequiredProperties = hasProperties(REQUIRED_PROPERTIES);
 
 function validPeople(req, res, next) {
   const { data: { people } = {} } = req.body;
-  if (Number(people) > 0 && typeof people === "number") {
+  const numberPeople = Number(people)
+  // console.log("PEOPLE", people, typeof numberPeople)
+  if (numberPeople > 0 && typeof numberPeople === "number") {
     next();
   } else {
     next({

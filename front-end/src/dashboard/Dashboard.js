@@ -23,9 +23,11 @@ function Dashboard({ date }) {
       .catch(setReservationsError);
     return () => abortController.abort();
   }
+
   const displayedReservations = reservations.map((reservation) => (
     <Reservations reservation={reservation} />
   ));
+  
   return (
     <main>
       <h1>Dashboard</h1>

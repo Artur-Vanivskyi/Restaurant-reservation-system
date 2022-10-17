@@ -85,7 +85,7 @@ function ReservationForm({
             id="people"
             onChange={handleChange}
             value={formData.people}
-            minlength={1}
+            minLength={1}
             placeholder="# of people for party"
             required
           />
