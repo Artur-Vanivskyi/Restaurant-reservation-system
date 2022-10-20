@@ -15,11 +15,24 @@ const REQUIRED_PROPERTIES = [
 
 async function list(req, res) {
   const today = new Date().toLocaleDateString().replaceAll("/", "-");
-  const  reservation_date  = req.query.date;
-  
-  const reservation = await service.list(reservation_date ? reservation_date : today);
-  console.log(reservation_date)
+  const reservation = await service.list(
+    req.query.date ? req.query.date : today
+  );
   res.json({ data: reservation });
+}
+
+function hasOnlyValidProperties(req, res, next) {
+  const { data = {} } = req.body;
+  const invalidStatuses = Object.keys(data).filter(
+    (field) => !REQUIRED_PROPERTIES.includes(field)
+  );
+  if (invalidStatuses.length) {
+    return next({
+      status: 400,
+      message: `Invalid field(s): ${invalidStatuses.join(", ")}`,
+    });
+  }
+  next();
 }
 
 function hasProperties(properties) {
@@ -31,7 +44,7 @@ function hasProperties(properties) {
       properties.forEach((property) => {
         // console.log("LOOK HERE", !data[property])
         // console.log("HERE", data, property)
-        
+
         if (!data[property]) {
           // console.log("HERE IN STATEMENT", data, property)
           const error = new Error(`A '${property}' property is required.`);
@@ -41,45 +54,107 @@ function hasProperties(properties) {
       });
       next();
     } catch (error) {
-      console.log("-----------", error)
+      console.log("-----------", error);
       next(error);
-      
     }
   };
 }
 
 const hasRequiredProperties = hasProperties(REQUIRED_PROPERTIES);
 
-function validPeople(req, res, next) {
-  const { data: { people } = {} } = req.body;
-  const numberPeople = Number(people)
-  // console.log("PEOPLE", people, typeof numberPeople)
-  if (numberPeople > 0 && typeof numberPeople === "number") {
-    next();
-  } else {
-    next({
+// function validPeople(req, res, next) {
+//   const { data: { people } = {} } = req.body;
+//   const numberPeople = Number(people);
+//   console.log("PEOPLE", people, typeof numberPeople);
+//   //problem with typeof line 70 number
+//   if (numberPeople > 0 && typeof numberPeople === "number") {
+//     next();
+//   } else {
+//     next({
+//       status: 400,
+//       message: "people must be a number greater than 0",
+//     });
+//   }
+// }
+
+const dateFormat = /^\d\d\d\d-\d\d-\d\d$/;
+const timeFormat = /^\d\d:\d\d$/;
+
+function dateIsValid(dateString) {
+  return dateString.match(dateFormat)?.[0];
+}
+
+function timeIsValid(timeString) {
+  return timeString.match(timeFormat)?.[0];
+}
+
+function dateNotTuesday(dateString) {
+  const date = new Date(dateString);
+  return date.getUTCDay() !== 2;
+}
+
+function dateNotInPast(dateString, timeString) {
+  const today = new Date();
+  const reservationDate = new Date(dateString + "T" + timeString);
+  return reservationDate > today;
+}
+
+function hasValidValues(req, res, next) {
+  const { reservation_date, reservation_time, people } = req.body.data;
+
+  if (!timeIsValid(reservation_time)) {
+    return next({
       status: 400,
-      message: "people must be greater than 0",
+      message: "reservation_time must be in HH:MM:SS format",
     });
   }
+  if (!dateIsValid(reservation_date)) {
+    return next({
+      status: 400,
+      message: "reservation_date must be in YYYY-MM-DD format",
+    });
+  }
+  if (typeof people !== "number") {
+    return next({
+      status: 400,
+      message: "people must be a number",
+    });
+  }
+  if (people < 1) {
+    return next({
+      status: 400,
+      message: "# of people must be greater than 1",
+    });
+  }
+
+  if (!dateNotTuesday(reservation_date)) {
+    return next({
+      status: 400,
+      message: "The restaurant is closed on Tuesday",
+    });
+  }
+  if (!dateNotInPast(reservation_date, reservation_time)) {
+    return next({
+      status: 400,
+      message: "You must do reservation for future date or time",
+    });
+  }
+  next();
 }
 
-function validateDate(date) {
-  let date_regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-  return date_regex.test(date);
-}
 
-function validateTime(time) {
-  let time_regex = /^(2[0-3]|[01][0-9]):[0-5][0-9]$/;
-  return time_regex.test(time);
-}
 
 async function create(req, res) {
-  const data = await service.create(req.body.reservation);
-  res.status(201).json({ data: data });
+  const reservation = await service.create(req.body.data);
+  res.status(201).json({ data: reservation });
 }
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  create: [hasRequiredProperties, validPeople, asyncErrorBoundary(create)],
+  create: [
+    hasOnlyValidProperties,
+    hasRequiredProperties,
+    hasValidValues,
+    asyncErrorBoundary(create),
+  ],
 };
