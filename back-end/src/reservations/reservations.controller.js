@@ -99,6 +99,18 @@ function dateNotInPast(dateString, timeString) {
   return reservationDate > today;
 }
 
+//before 10:30 am
+// after 9:30 pm
+// hours and minutes
+// reservation_time
+//const [hours, minutes] = reservation_time
+
+function reservationEligibleTime(timeString) {
+  let openTime = "10:30";
+  let closingTime = "21:30";
+  return timeString <= closingTime && timeString >= openTime;
+}
+
 function hasValidValues(req, res, next) {
   const { reservation_date, reservation_time, people } = req.body.data;
 
@@ -126,7 +138,6 @@ function hasValidValues(req, res, next) {
       message: "# of people must be greater than 1",
     });
   }
-
   if (!dateNotTuesday(reservation_date)) {
     return next({
       status: 400,
@@ -139,10 +150,14 @@ function hasValidValues(req, res, next) {
       message: "You must do reservation for future date or time",
     });
   }
+  if(!reservationEligibleTime(reservation_time)){
+    return next({
+      status: 400,
+      message: "Reservation time must be between 10:30 AM and 9:30 PM"
+    })
+  }
   next();
 }
-
-
 
 async function create(req, res) {
   const reservation = await service.create(req.body.data);
