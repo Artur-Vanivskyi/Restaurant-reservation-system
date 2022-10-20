@@ -50,7 +50,7 @@ function Dashboard({ date }) {
   };
 
   const displayedReservations = reservations.map((reservation) => (
-    <Reservations reservation={reservation} />
+    <Reservations key={reservation.reservation_id} reservation={reservation} />
   ));
 
   return (

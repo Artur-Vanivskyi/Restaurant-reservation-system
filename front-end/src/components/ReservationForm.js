@@ -80,12 +80,12 @@ function ReservationForm({
           <label htmlFor="people">Number of people</label>
           <input
             name="people"
-            type="text"
+            type="number"
             className="form-control"
             id="people"
             onChange={handleChange}
             value={formData.people}
-            minLength={1}
+            min="1"
             placeholder="# of people for party"
             required
           />
