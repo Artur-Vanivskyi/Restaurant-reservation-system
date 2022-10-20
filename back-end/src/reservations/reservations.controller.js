@@ -36,17 +36,11 @@ function hasOnlyValidProperties(req, res, next) {
 }
 
 function hasProperties(properties) {
-  // console.log("HEY", properties)
   return function (req, res, next) {
     const { data = {} } = req.body;
-
     try {
       properties.forEach((property) => {
-        // console.log("LOOK HERE", !data[property])
-        // console.log("HERE", data, property)
-
         if (!data[property]) {
-          // console.log("HERE IN STATEMENT", data, property)
           const error = new Error(`A '${property}' property is required.`);
           error.status = 400;
           throw error;
@@ -150,13 +144,30 @@ function hasValidValues(req, res, next) {
       message: "You must do reservation for future date or time",
     });
   }
-  if(!reservationEligibleTime(reservation_time)){
+  if (!reservationEligibleTime(reservation_time)) {
     return next({
       status: 400,
-      message: "Reservation time must be between 10:30 AM and 9:30 PM"
-    })
+      message: "Reservation time must be between 10:30 AM and 9:30 PM",
+    });
   }
   next();
+}
+
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  if (reservation) {
+    res.locals.reservation = reservation;
+    return next();
+  }
+  next({
+    status: 404,
+    message: `Reservation ID ${reservation_id} does not exist`,
+  });
+}
+
+function read(req, res, next) {
+  res.status(201).json(res.locals.reservation);
 }
 
 async function create(req, res) {
@@ -166,6 +177,7 @@ async function create(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
+  read: [reservationExists, read],
   create: [
     hasOnlyValidProperties,
     hasRequiredProperties,
