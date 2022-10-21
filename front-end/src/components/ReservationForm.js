@@ -45,7 +45,7 @@ function ReservationForm({
             id="mobile_number"
             onChange={handleChange}
             value={formData.mobile_number}
-            pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+            // pattern="\d{3}[\-]\d{3}[\-]\d{4}"
             placeholder="xxx-xxx-xxxx"
             required
           />
