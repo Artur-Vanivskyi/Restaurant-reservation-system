@@ -22,10 +22,12 @@ async function list(req, res) {
 }
 
 function hasOnlyValidProperties(req, res, next) {
+  // console.log("valid props")
   const { data = {} } = req.body;
   const invalidStatuses = Object.keys(data).filter(
     (field) => !REQUIRED_PROPERTIES.includes(field)
   );
+
   if (invalidStatuses.length) {
     return next({
       status: 400,
@@ -36,6 +38,7 @@ function hasOnlyValidProperties(req, res, next) {
 }
 
 function hasProperties(properties) {
+  console.log("has props");
   return function (req, res, next) {
     const { data = {} } = req.body;
     try {
@@ -48,28 +51,12 @@ function hasProperties(properties) {
       });
       next();
     } catch (error) {
-      console.log("-----------", error);
       next(error);
     }
   };
 }
 
 const hasRequiredProperties = hasProperties(REQUIRED_PROPERTIES);
-
-// function validPeople(req, res, next) {
-//   const { data: { people } = {} } = req.body;
-//   const numberPeople = Number(people);
-//   console.log("PEOPLE", people, typeof numberPeople);
-//   //problem with typeof line 70 number
-//   if (numberPeople > 0 && typeof numberPeople === "number") {
-//     next();
-//   } else {
-//     next({
-//       status: 400,
-//       message: "people must be a number greater than 0",
-//     });
-//   }
-// }
 
 const dateFormat = /^\d\d\d\d-\d\d-\d\d$/;
 const timeFormat = /^\d\d:\d\d$/;
@@ -166,11 +153,48 @@ async function reservationExists(req, res, next) {
   });
 }
 
+// validation for status US-6
+
+// function validStatus(req, res, next) {
+//   const { status } = req.body.data;
+//   const VALID_STATUSES = ["booked", "seated", "finished"];
+//   if (VALID_STATUSES.includes(status)) {
+//     return next();
+//   }
+//   next({
+//     status: 400,
+//     message: "Status is unknown",
+//   });
+// }
+
+// function statusIsBooked(req, res, next) {
+//   const { status } = res.locals.reservation;
+//   if (status === "booked") {
+//     return next();
+//   }
+//   next({
+//     status: 400,
+//     message: `Invalid status : ${status}`,
+//   });
+// }
+
+// function statusNotFinished(req, res, next) {
+//   const { status } = res.locals.reservation;
+//   if (status === "finished") {
+//     return next({
+//       status: 400,
+//       message: "A finished reservation cannot be updated",
+//     });
+//   }
+//   next();
+// }
+
 function read(req, res, next) {
   res.status(201).json(res.locals.reservation);
 }
 
 async function create(req, res) {
+  console.log("hello");
   const reservation = await service.create(req.body.data);
   res.status(201).json({ data: reservation });
 }
