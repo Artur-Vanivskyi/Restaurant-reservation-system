@@ -13,11 +13,23 @@ const REQUIRED_PROPERTIES = [
   "people",
 ];
 
+// async function list(req, res) {
+//   const mobile_number = req.query.mobile_number;
+//   const data = await (
+//       mobile_number
+//     ? service.search(mobile_number)
+//     : service.list(req.query.date)
+//   );
+//   res.json({
+//     data,
+//   });
+// }
+
 async function list(req, res) {
-  const today = new Date().toLocaleDateString().replaceAll("/", "-");
-  const reservation = await service.list(
-    req.query.date ? req.query.date : today
-  );
+  //const today = new Date().toLocaleDateString().replaceAll("/", "-");
+  const { date } = req.query
+  // console.log("line 31 list", date)
+  const reservation = await service.list(date);
   res.json({ data: reservation });
 }
 
@@ -38,7 +50,7 @@ function hasOnlyValidProperties(req, res, next) {
 }
 
 function hasProperties(properties) {
-  console.log("has props");
+  // console.log("has props");
   return function (req, res, next) {
     const { data = {} } = req.body;
     try {
@@ -190,11 +202,11 @@ async function reservationExists(req, res, next) {
 // }
 
 function read(req, res, next) {
-  res.status(201).json(res.locals.reservation);
+  res.status(200).json({data: res.locals.reservation});
 }
 
 async function create(req, res) {
-  console.log("hello");
+  // console.log("hello");
   const reservation = await service.create(req.body.data);
   res.status(201).json({ data: reservation });
 }
