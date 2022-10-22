@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "./Reservations";
 import { previous, next, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
-
+import Tables from "./Tables";
 /**
  * Defines the dashboard page.
  * @param date
@@ -16,6 +16,8 @@ import useQuery from "../utils/useQuery";
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [tablesErrors, setTablesErrors] = useState(null);
 
   const query = useQuery();
   const dateQuery = query.get("date");
@@ -31,6 +33,7 @@ function Dashboard({ date }) {
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
+    listTables(abortController.signal).then(setTables).catch(setTablesErrors);
     return () => abortController.abort();
   }
 
@@ -52,6 +55,8 @@ function Dashboard({ date }) {
   const displayedReservations = reservations.map((reservation) => (
     <Reservations key={reservation.reservation_id} reservation={reservation} />
   ));
+
+  const displayTables = tables.map((table) => <Tables table={table} />);
 
   return (
     <main>
@@ -80,12 +85,21 @@ function Dashboard({ date }) {
         </button>
       </div>
       <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date</h4>
+        <h4 className="mb-0">Reservations for date {date}</h4>
       </div>
-      <ErrorAlert error={reservationsError} />
-      {displayedReservations}
+      <div className="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <ErrorAlert error={reservationsError} />
+            {displayedReservations}
+          </div>
 
-      {/* {JSON.stringify(reservations)} */}
+          <div class="col-sm-6">
+            <ErrorAlert error={tablesErrors} />
+            {displayTables}
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

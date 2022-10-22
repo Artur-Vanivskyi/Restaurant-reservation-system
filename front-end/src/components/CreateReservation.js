@@ -34,27 +34,7 @@ function CreateReservation() {
     event.preventDefault();
    
     const abortController = new AbortController();
-    // setFormErrors([]);
-    // const reservationDate = new Date(
-    //   `${formData.reservation_date}T${formData.reservation_time}`
-    // );
-
-    // const errors = [];
-
-    // if (reservationDate < new Date()) {
-    //   errors.push({
-    //     message: "Reservation must be for future date",
-    //   });
-    // }
-
-    // if (reservationDate.getUTCDay() === 2) {
-    //   errors.push({
-    //     message: "Restaurant is closed on Tuesday",
-    //   });
-    // }
-    // console.log(errors);
-    // setFormErrors(errors);
-
+    
     const formDataFormated = { ...formData, people: Number(formData.people) };
       try {
         await createReservation(formDataFormated, abortController.signal);
@@ -66,7 +46,7 @@ function CreateReservation() {
 
     return () => abortController.abort();
   };
-console.log(formErrors)
+
   let displayErrors = formErrors && <ErrorAlert error={formErrors} />
   
 

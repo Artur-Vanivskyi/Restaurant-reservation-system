@@ -6,6 +6,7 @@ import NotFound from "./NotFound";
 import { today } from "../utils/date-time";
 import CreateReservation from "../components/CreateReservation";
 import useQuery from "../utils/useQuery";
+import CreateTable from "../components/CreateTable";
 /**
  * Defines all the routes for the application.
  *
@@ -15,7 +16,7 @@ import useQuery from "../utils/useQuery";
  */
 function Routes() {
   const query = useQuery();
-  const date = query.get("date")
+  const date = query.get("date");
   // console.log(date)
   return (
     <Switch>
@@ -26,13 +27,16 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard date={date ? date: today()} />
+        <Dashboard date={date ? date : today()} />
       </Route>
 
-      <Route  path="/reservations/new">
+      <Route path="/reservations/new">
         <CreateReservation />
       </Route>
-      
+      <Route path="/tables/new">
+        <CreateTable />
+      </Route>
+
       <Route>
         <NotFound />
       </Route>
