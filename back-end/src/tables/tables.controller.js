@@ -68,6 +68,18 @@ function hasValidValues(req, res, next) {
   next();
 }
 
+function sufficientCapacity(req, res, next) {
+  const { capacity } = res.locals.table;
+  const { people } = res.locals.reservation;
+  if (capacity < people) {
+    return next({
+      status: 400,
+      message: "table does not have sufficient capacity",
+    });
+  }
+  next();
+}
+
 function tableOccupied(req, res, next) {
   const occupied = res.locals.table.reservation_id;
   if (occupied) {
@@ -80,17 +92,15 @@ function tableOccupied(req, res, next) {
 }
 
 function tableNotOccupied(req, res, next) {
-    const occupied = res.locals.table.reservation_id;
-    if (!occupied) {
-      return next({
-        status: 400,
-        message: "table is not occupied",
-      });
-    }
-    next();
+  const occupied = res.locals.table.reservation_id;
+  if (!occupied) {
+    return next({
+      status: 400,
+      message: "table is not occupied",
+    });
   }
-
-
+  next();
+}
 
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.params;
@@ -127,6 +137,23 @@ async function create(req, res, next) {
   res.status(201).json({ data: table });
 }
 
+// async function update(req, res, next) {
+//   const table = {
+//     ...req.body.data,
+//     table_id: res.locals.table.table_id,
+//   };
+//   const data = await service.update(table);
+//   res.json({ data });
+// }
+
+// http PUT on US-4(3) table/:table_id/seat
+// async function seat(req, res, next) {
+//   const { reservation_id } = req.body.data;
+//   const { table_id } = res.locals.table;
+//   const data = await service.seat(reservation_id, table_id);
+//   res.json({ data });
+// }
+
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [tableExists, read],
@@ -136,4 +163,5 @@ module.exports = {
     hasValidValues,
     asyncErrorBoundary(create),
   ],
+  // update:[tableExists, asyncErrorBoundary(update)]
 };

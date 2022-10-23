@@ -1,3 +1,4 @@
+const { where } = require("../db/connection");
 const knex = require("../db/connection");
 
 function list() {
@@ -13,8 +14,31 @@ function create(table) {
     .insert(table, "*")
     .then((createdTable) => createdTable[0]);
 }
+
+// function update(table){
+//   return knex("tables")
+//   .where({table_id: table.table_id})
+//   .update(table)
+//   .returning("*")
+//   .then((updatedTable) => updatedTable[0])
+// }
+
+// function seat(reservation_id, table_id){
+//   return knex.transaction(function(trx){
+//     return trx("tables")
+//     .where({table_id})
+//     .update({reservation_id})
+//     .returning("*")
+//     .then(() => {
+//       return trx("reservations")
+
+//     })
+//   })
+// }
+
 module.exports = {
   list,
   read,
   create,
+  // update,
 };

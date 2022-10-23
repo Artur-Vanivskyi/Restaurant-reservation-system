@@ -27,7 +27,7 @@ const REQUIRED_PROPERTIES = [
 
 async function list(req, res) {
   //const today = new Date().toLocaleDateString().replaceAll("/", "-");
-  const { date } = req.query
+  const { date } = req.query;
   // console.log("line 31 list", date)
   const reservation = await service.list(date);
   res.json({ data: reservation });
@@ -202,7 +202,7 @@ async function reservationExists(req, res, next) {
 // }
 
 function read(req, res, next) {
-  res.status(200).json({data: res.locals.reservation});
+  res.status(200).json({ data: res.locals.reservation });
 }
 
 async function create(req, res) {
@@ -210,6 +210,15 @@ async function create(req, res) {
   const reservation = await service.create(req.body.data);
   res.status(201).json({ data: reservation });
 }
+
+// async function update(req, res, next) {
+//   const updatedReservation = {
+//     ...req.body.data,
+//     reservation_id: res.locals.reservation_id,
+//   };
+//   const reservation = await service.update(updatedReservation);
+//   res.json({ data: reservation });
+// }
 
 module.exports = {
   list: asyncErrorBoundary(list),
@@ -220,4 +229,10 @@ module.exports = {
     hasValidValues,
     asyncErrorBoundary(create),
   ],
+  // update: [
+  //   reservationExists,
+  //   hasOnlyValidProperties,
+  //   hasRequiredProperties,
+  //   asyncErrorBoundary(update),
+  // ],
 };
