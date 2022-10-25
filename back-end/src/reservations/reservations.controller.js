@@ -222,7 +222,7 @@ async function create(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  read: [reservationExists, read],
+  read: [asyncErrorBoundary(reservationExists), read],
   create: [
     hasOnlyValidProperties,
     hasRequiredProperties,

@@ -1,5 +1,6 @@
 const service = require("./tables.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const reservationService = require("../reservations/reservations.service");
 
 const REQUIRED_PROPERTIES = ["table_name", "capacity"];
 
@@ -108,14 +109,16 @@ function tableNotOccupied(req, res, next) {
 
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.body.data;
+  
   // console.log("resid", reservation_id)
-  const reservation = await service.read(reservation_id);
+  const reservation = await reservationService.read(req.body.data.reservation_id);
+  // console.log("lol", reservation);
   if (reservation) {
     res.locals.reservation = reservation;
     return next();
   }
-  console.log("lol", req.body.data.reservation_id);
-  return next({
+  
+    next({
     status: 404,
     message: `Reservation ID ${reservation_id} does not exist`,
   });
@@ -177,9 +180,8 @@ module.exports = {
     hasProperties(["reservation_id"]),
     asyncErrorBoundary(tableExists),
     asyncErrorBoundary(reservationExists),
-
-    // asyncErrorBoundary(tableOccupied),
-    // asyncErrorBoundary(sufficientCapacity),
+    asyncErrorBoundary(tableOccupied),
+    asyncErrorBoundary(sufficientCapacity),
     asyncErrorBoundary(seat),
   ],
 };
