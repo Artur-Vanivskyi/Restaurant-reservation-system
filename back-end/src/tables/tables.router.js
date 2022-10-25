@@ -11,7 +11,7 @@ router
 router
   .route("/:table_id/seat")
   .get(controller.read)
-  // .put(controller.update)
+  .put(controller.seat)
   .all(methodNotAllowed);
 
 module.exports = router;

@@ -23,22 +23,22 @@ function create(table) {
 //   .then((updatedTable) => updatedTable[0])
 // }
 
-// function seat(reservation_id, table_id){
-//   return knex.transaction(function(trx){
-//     return trx("tables")
-//     .where({table_id})
-//     .update({reservation_id})
-//     .returning("*")
-//     .then(() => {
-//       return trx("reservations")
-
-//     })
-//   })
-// }
+function seat(reservation_id, table_id) {
+  // console.log("resId", reservation_id)
+  // console.log("tabId", table_id)
+  return knex.transaction(function (trx) {
+    return trx("tables")
+      .where({ table_id })
+      .update({ reservation_id })
+      .returning("*")
+      .then((updated) => updated[0])
+  });
+}
 
 module.exports = {
   list,
   read,
   create,
+  seat,
   // update,
 };
