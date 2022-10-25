@@ -22,6 +22,7 @@ function Seat() {
     return () => abortController.abort();
   }
   useEffect(loadReservations, [reservation_id]);
+  
   function loadReservations() {
     const abortController = new AbortController();
     readReservation(reservation_id, abortController.signal)

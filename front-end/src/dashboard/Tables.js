@@ -15,6 +15,7 @@ function Tables({ table }) {
             <h5 className="col card-title mb-0 justify-content-center align-self-center">
               Capacity: {capacity}
             </h5>
+            {/* {table.reservation_id ? "Occupied" : "Free"} */}
             {table.reservation_id ? (
               <>
                 <div
