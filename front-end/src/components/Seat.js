@@ -5,6 +5,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 
 function Seat() {
   const { reservation_id } = useParams();
+  
   const history = useHistory();
 
   const [tables, setTables] = useState([]);

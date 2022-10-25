@@ -101,7 +101,7 @@ export async function createTable(table, signal) {
 }
 
 export async function seatReservation(reservation_id, table_id, signal) {
-  console.log(reservation_id)
+  console.log("hey",reservation_id)
   console.log(table_id)
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
