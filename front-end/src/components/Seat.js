@@ -34,7 +34,7 @@ function Seat() {
 
   const availableTables = tables.map((table) => (
     <option key={table.table_id} value={table.table_id}>
-      {table.table_id} - {table.capacity}
+      {table.table_name} - {table.capacity}
     </option>
   ));
 
@@ -64,7 +64,7 @@ function Seat() {
       <form className="form-inline" onSubmit={handleSubmit}>
         {displayErrors}
         <h3>Available Tables: </h3>
-        <select required name="table_id" onChange={handleChange}>
+        <select required name="table_id"  onChange={handleChange}>
           <option>---Select an option---</option>
           {availableTables}
         </select>
