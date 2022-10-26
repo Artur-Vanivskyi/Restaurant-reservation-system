@@ -11,7 +11,9 @@ function Reservations({ reservation }) {
     people,
     status,
   } = reservation;
+
 console.log("status", status)
+
   function seatButton() {
     if (status === "booked") {
       return (
@@ -21,6 +23,7 @@ console.log("status", status)
       );
     } else return null;
   }
+
 
   return (
     <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>

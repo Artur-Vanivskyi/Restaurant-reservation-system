@@ -14,6 +14,7 @@ function CreateReservation() {
     reservation_date: "",
     reservation_time: "",
     people: "",
+    status: "booked",
   };
 
   const [formData, setFormData] = useState({ ...initialFormState });
@@ -46,7 +47,7 @@ function CreateReservation() {
 
     return () => abortController.abort();
   };
-
+console.log("line 50 front", formData)
   let displayErrors = formErrors && <ErrorAlert error={formErrors} />
   
 

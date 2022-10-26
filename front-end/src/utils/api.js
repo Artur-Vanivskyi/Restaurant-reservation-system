@@ -115,7 +115,7 @@ export async function seatReservation(reservation_id, table_id, signal) {
 
 export async function unseatTable(table_id, reservation_id) {
   // console.log(table_id)
-  console.log("API line 119", table_id, reservation_id);
+  // console.log("API line 119", table_id, reservation_id);
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
     method: "DELETE",
