@@ -7,6 +7,7 @@ router
   .route("/:table_id/seat")
   .get(controller.read)
   .put(controller.seat)
+  .delete(controller.unseat)
   .all(methodNotAllowed);
   
 router
