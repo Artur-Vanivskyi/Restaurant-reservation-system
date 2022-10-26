@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { listReservations, listTables } from "../utils/api";
+import { listReservations, listTables, unseatTable } from "../utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "./Reservations";
 import { previous, next, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import Tables from "./Tables";
+
 /**
  * Defines the dashboard page.
  * @param date
@@ -36,6 +37,12 @@ function Dashboard({ date }) {
     listTables(abortController.signal).then(setTables).catch(setTablesErrors);
     return () => abortController.abort();
   }
+  /////////////////////////////
+  function onFinish(table_id, reservation_id) {
+    console.log("onFinish")
+    unseatTable(table_id, reservation_id)
+      .then(loadDashboard)
+  }
 
   const handleNext = () => {
     setPageDate(next(pageDate));
@@ -56,7 +63,9 @@ function Dashboard({ date }) {
     <Reservations key={reservation.reservation_id} reservation={reservation} />
   ));
 
-  const displayTables = tables.map((table) => <Tables table={table} />);
+  const displayTables = tables.map((table, index) => (
+    <Tables key={index} table={table} onFinish={onFinish} />
+  ));
 
   return (
     <main>
@@ -88,13 +97,13 @@ function Dashboard({ date }) {
         <h4 className="mb-0">Reservations for date {date}</h4>
       </div>
       <div className="container">
-        <div class="row">
-          <div class="col-sm-6">
+        <div className="row">
+          <div className="col-sm-6">
             <ErrorAlert error={reservationsError} />
             {displayedReservations}
           </div>
 
-          <div class="col-sm-6">
+          <div className="col-sm-6">
             <ErrorAlert error={tablesErrors} />
             {displayTables}
           </div>

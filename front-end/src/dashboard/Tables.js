@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { unseatTable } from "../utils/api";
 
-function Tables({ table }) {
-  const { table_name, capacity } = table;
+function Tables({ table, onFinish }) {
+  const { table_name, capacity, table_id, reservation_id } = table;
+  const [errors, setErrors] = useState(null);
+
+  const handleFinish = (event) => {
+    console.log("handleFinish")
+    event.preventDefault();
+    try {
+      if (
+        window.confirm(
+          "Is this table ready to seat new guests? This cannot be undone"
+        )
+      ) {
+        // unseatTable(table_id, reservation_id);
+        onFinish(table_id, reservation_id);
+        console.log("onFinish")
+        console.log(table_id, reservation_id)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  };
 
   return (
     <div
@@ -35,6 +56,14 @@ function Tables({ table }) {
                 Free
               </div>
             )}
+            <button
+              type="button"
+              data-table-id-finish={table.table_id}
+              className="btn btn-success"
+              onClick={handleFinish}
+            >
+              Finish
+            </button>
           </div>
         </div>
       </div>

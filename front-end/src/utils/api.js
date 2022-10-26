@@ -101,8 +101,8 @@ export async function createTable(table, signal) {
 }
 
 export async function seatReservation(reservation_id, table_id, signal) {
-  console.log("hey",reservation_id)
-  console.log(table_id)
+  // console.log("hey",reservation_id)
+  // console.log(table_id)
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
     method: "PUT",
@@ -111,4 +111,16 @@ export async function seatReservation(reservation_id, table_id, signal) {
     signal,
   };
   return await fetchJson(url, options);
+}
+
+
+export async function unseatTable(table_id, reservation_id){
+  // console.log(table_id)
+  console.log("API line 119", table_id, reservation_id)
+  const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
+  const options = {
+    method: "DELETE",
+    headers,
+  };
+  return await fetchJson(url, options, {});
 }
