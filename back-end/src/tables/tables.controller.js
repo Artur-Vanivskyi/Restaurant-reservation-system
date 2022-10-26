@@ -86,7 +86,7 @@ async function sufficientCapacity(req, res, next) {
 
 async function tableOccupied(req, res, next) {
   const occupied = res.locals.table.reservation_id;
-  console.log(res.locals.table.reservation_id);
+  console.log("line 89", res.locals.table.reservation_id);
   if (occupied) {
     return next({
       status: 400,
@@ -107,6 +107,17 @@ async function tableNotOccupied(req, res, next) {
   next();
 }
 
+async function seated(req, res, next) {
+  const { status } = res.locals.reservation;
+  if (status === "seated") {
+    return next({
+      status: 400,
+      message: "reservation is already seated",
+    });
+  }
+  next();
+}
+
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.body.data;
 
@@ -119,7 +130,6 @@ async function reservationExists(req, res, next) {
     res.locals.reservation = reservation;
     return next();
   }
-
   next({
     status: 404,
     message: `Reservation ID ${reservation_id} does not exist`,
@@ -163,6 +173,7 @@ async function seat(req, res, next) {
   // console.log(req.body)
   const { reservation_id } = req.body.data;
   const { table_id } = res.locals.table;
+  // console.log("line 180", req.body.data)
   // console.log(reservation_id)
   // console.log(table_id)
   const data = await service.seat(reservation_id, table_id);
@@ -170,11 +181,11 @@ async function seat(req, res, next) {
 }
 
 async function unseat(req, res, next) {
-  console.log("controller")
+  console.log("controller");
   const { table_id } = req.params;
-  const table  = res.locals.table;
+  const table = res.locals.table;
   const data = await service.unseat(table);
-console.log("line 177", data)
+  console.log("line 177", data);
   res.json({ data });
 }
 
@@ -192,8 +203,8 @@ module.exports = {
     asyncErrorBoundary(tableExists),
     asyncErrorBoundary(reservationExists),
     asyncErrorBoundary(tableOccupied),
-    
     asyncErrorBoundary(sufficientCapacity),
+    asyncErrorBoundary(seated),
     asyncErrorBoundary(seat),
   ],
   unseat: [

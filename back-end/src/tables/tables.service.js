@@ -24,26 +24,40 @@ function create(table) {
 // }
 
 function seat(reservation_id, table_id) {
-  console.log("resId", reservation_id)
-  // console.log("tabId", table_id)
+  console.log("resId", reservation_id);
+  console.log("tabId", table_id);
   return knex.transaction(function (trx) {
     return trx("tables")
       .where({ table_id })
       .update({ reservation_id })
       .returning("*")
-      .then((updated) => updated[0]);
+      .then((updatedTable) => updatedTable[0])
+      .then((updatedTable) => {
+        return trx("reservations")
+          .where({ reservation_id: updatedTable.reservation_id })
+          .update({ status: "seated" })
+          .returning("*")
+          .then((updatedReservation) => updatedReservation[0]);
+      });
   });
 }
 
-function unseat({table_id, reservation_id}) {
+function unseat({ table_id, reservation_id }) {
   // console.log("yoyo", reservation_id)
-  console.log("service yo",table_id, reservation_id)
+  // console.log("service yo", table_id, reservation_id);
   return knex.transaction(function (trx) {
     return trx("tables")
       .where({ table_id: table_id })
       .update({ reservation_id: null })
       .returning("*")
-      .then((updated) => updated[0]);
+      .then((updated) => updated[0])
+      .then((updated) => {
+        return trx("reservations")
+          .where({ reservation_id })
+          .update({ status: "finished" })
+          // .returning("*")
+          // .then((updatedReservation) => updatedReservation[0]);
+      });
   });
 }
 
