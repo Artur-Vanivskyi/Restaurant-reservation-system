@@ -9,7 +9,18 @@ function Reservations({ reservation }) {
     reservation_date,
     reservation_time,
     people,
+    status,
   } = reservation;
+console.log("status", status)
+  function seatButton() {
+    if (status === "booked") {
+      return (
+        <a href={`/reservations/${reservation_id}/seat`}>
+          <button className="link-dark btn btn-info">Seat</button>
+        </a>
+      );
+    } else return null;
+  }
 
   return (
     <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>
@@ -21,8 +32,14 @@ function Reservations({ reservation }) {
         <p className="card-text">Time: {reservation_time}</p>
         <p className="card-text">Party Size: {people}</p>
         <p className="card-text">Phone Number: {mobile_number}</p>
+        <p
+          className="card-text"
+          data-reservation-id-status={reservation.reservation_id}
+        >
+          Status: {status}
+        </p>
       </div>
-      <a href={`/reservations/${reservation_id}/seat`} className="link-dark btn btn-info">Seat</a>
+      <div>{seatButton()}</div>
     </div>
   );
 }
