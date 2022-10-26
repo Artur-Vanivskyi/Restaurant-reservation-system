@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { unseatTable } from "../utils/api";
+// import { unseatTable } from "../utils/api";
 
 function Tables({ table, onFinish }) {
   const { table_name, capacity, table_id, reservation_id } = table;
@@ -16,8 +16,8 @@ function Tables({ table, onFinish }) {
       ) {
         // unseatTable(table_id, reservation_id);
         onFinish(table_id, reservation_id);
-        console.log("onFinish")
-        console.log(table_id, reservation_id)
+        // console.log("onFinish")
+        // console.log(table_id, reservation_id)
       }
     } catch (err) {
       console.log(err)
@@ -56,14 +56,18 @@ function Tables({ table, onFinish }) {
                 Free
               </div>
             )}
-            <button
+            {
+            table.reservation_id ? 
+            (<button
               type="button"
               data-table-id-finish={table.table_id}
               className="btn btn-success"
               onClick={handleFinish}
             >
               Finish
-            </button>
+            </button>) : (null) 
+            }
+            
           </div>
         </div>
       </div>

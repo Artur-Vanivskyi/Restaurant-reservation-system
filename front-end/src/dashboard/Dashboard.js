@@ -39,7 +39,8 @@ function Dashboard({ date }) {
   }
   /////////////////////////////
   function onFinish(table_id, reservation_id) {
-    console.log("onFinish")
+    // console.log("onFinish")
+    console.log("dash liine 43", table_id, reservation_id)
     unseatTable(table_id, reservation_id)
       .then(loadDashboard)
   }
