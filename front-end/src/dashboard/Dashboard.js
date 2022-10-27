@@ -37,13 +37,7 @@ function Dashboard({ date }) {
     listTables(abortController.signal).then(setTables).catch(setTablesErrors);
     return () => abortController.abort();
   }
-  /////////////////////////////
-  function onFinish(table_id, reservation_id) {
-    // console.log("onFinish")
-    console.log("dash liine 43", table_id, reservation_id)
-    unseatTable(table_id, reservation_id)
-      .then(loadDashboard)
-  }
+ 
 
   const handleNext = () => {
     setPageDate(next(pageDate));
@@ -65,7 +59,7 @@ function Dashboard({ date }) {
   ));
 
   const displayTables = tables.map((table, index) => (
-    <Tables key={index} table={table} onFinish={onFinish} />
+    <Tables key={index} table={table} loadDashboard={loadDashboard} />
   ));
 
   return (

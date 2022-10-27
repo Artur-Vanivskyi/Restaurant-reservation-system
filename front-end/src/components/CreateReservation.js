@@ -33,23 +33,21 @@ function CreateReservation() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+
     const abortController = new AbortController();
-    
+
     const formDataFormated = { ...formData, people: Number(formData.people) };
-      try {
-        await createReservation(formDataFormated, abortController.signal);
-        history.push(`/dashboard?date=${formData.reservation_date}`);
-      } catch (err) {
-        setFormErrors(err)
-      }
-    
+    try {
+      await createReservation(formDataFormated, abortController.signal);
+      history.push(`/dashboard?date=${formData.reservation_date}`);
+    } catch (err) {
+      setFormErrors(err);
+    }
 
     return () => abortController.abort();
   };
-console.log("line 50 front", formData)
-  let displayErrors = formErrors && <ErrorAlert error={formErrors} />
   
+  let displayErrors = formErrors && <ErrorAlert error={formErrors} />;
 
   return (
     <div>

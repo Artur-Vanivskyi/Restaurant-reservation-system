@@ -5,7 +5,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 
 function Seat() {
   const { reservation_id } = useParams();
-  
+
   const history = useHistory();
 
   const [tables, setTables] = useState([]);
@@ -23,7 +23,7 @@ function Seat() {
     return () => abortController.abort();
   }
   useEffect(loadReservations, [reservation_id]);
-  
+
   function loadReservations() {
     const abortController = new AbortController();
     readReservation(reservation_id, abortController.signal)
@@ -64,7 +64,7 @@ function Seat() {
       <form className="form-inline" onSubmit={handleSubmit}>
         {displayErrors}
         <h3>Available Tables: </h3>
-        <select required name="table_id"  onChange={handleChange}>
+        <select required name="table_id" onChange={handleChange}>
           <option>---Select an option---</option>
           {availableTables}
         </select>

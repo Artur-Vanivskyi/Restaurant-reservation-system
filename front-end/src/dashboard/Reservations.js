@@ -12,18 +12,6 @@ function Reservations({ reservation }) {
     status,
   } = reservation;
 
-  console.log("status line 15", status, reservation_id);
-
-  // function seatButton() {
-  //   if (status === "booked") {
-  //     return (
-  //       <a href={`/reservations/${reservation_id}/seat`} className="btn btn-info">
-  //         Seat
-  //       </a>
-  //     );
-  //   } else return null;
-  // }
-
   return (
     <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>
       <h5 className="card-header">
