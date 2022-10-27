@@ -11,7 +11,6 @@ const REQUIRED_PROPERTIES = [
   "reservation_date",
   "reservation_time",
   "people",
-  "status",
 ];
 
 const VALID_PROPERTIES = [
@@ -50,7 +49,7 @@ function hasOnlyValidProperties(req, res, next) {
   // console.log("valid props")
   const { data = {} } = req.body;
   const invalidStatuses = Object.keys(data).filter(
-    (field) => !REQUIRED_PROPERTIES.includes(field)
+    (field) => !VALID_PROPERTIES.includes(field)
   );
 
   if (invalidStatuses.length) {
@@ -62,7 +61,7 @@ function hasOnlyValidProperties(req, res, next) {
   next();
 }
 
-function hasProperties(properties) {
+function hasProperties(...properties) {
   // console.log("has props");
   return function (req, res, next) {
     const { data = {} } = req.body;
@@ -81,7 +80,7 @@ function hasProperties(properties) {
   };
 }
 
-const hasRequiredProperties = hasProperties(REQUIRED_PROPERTIES);
+const hasRequiredProperties = hasProperties(...REQUIRED_PROPERTIES);
 const hasValidPropertiesForUpdate = hasProperties(VALID_PROPERTIES);
 
 const dateFormat = /^\d\d\d\d-\d\d-\d\d$/;

@@ -181,11 +181,11 @@ async function seat(req, res, next) {
 }
 
 async function unseat(req, res, next) {
-  console.log("controller");
+  // console.log("controller");
   const { table_id } = req.params;
   const table = res.locals.table;
   const data = await service.unseat(table);
-  console.log("line 177", data);
+  // console.log("line 177", data);
   res.json({ data });
 }
 
