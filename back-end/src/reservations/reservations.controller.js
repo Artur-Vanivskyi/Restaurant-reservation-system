@@ -25,22 +25,14 @@ const VALID_PROPERTIES = [
   "created_at",
   "updated_at",
 ];
-// async function list(req, res) {
-//   const mobile_number = req.query.mobile_number;
-//   const data = await (
-//       mobile_number
-//     ? service.search(mobile_number)
-//     : service.list(req.query.date)
-//   );
-//   res.json({
-//     data,
-//   });
-// }
+
 
 async function list(req, res) {
   //const today = new Date().toLocaleDateString().replaceAll("/", "-");
-  const { date } = req.query;
-  const reservation = await service.list(date);
+  const { date, mobile_number } = req.query;
+  const reservation = await (mobile_number
+    ? service.search(mobile_number)
+    : service.list(date));
   res.json({ data: reservation });
 }
 
