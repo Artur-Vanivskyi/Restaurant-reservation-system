@@ -40,18 +40,15 @@ const VALID_PROPERTIES = [
 async function list(req, res) {
   //const today = new Date().toLocaleDateString().replaceAll("/", "-");
   const { date } = req.query;
-  // console.log("line 31 list", date)
   const reservation = await service.list(date);
   res.json({ data: reservation });
 }
 
 function hasOnlyValidProperties(req, res, next) {
-  // console.log("valid props")
   const { data = {} } = req.body;
   const invalidStatuses = Object.keys(data).filter(
     (field) => !VALID_PROPERTIES.includes(field)
   );
-
   if (invalidStatuses.length) {
     return next({
       status: 400,
@@ -62,7 +59,6 @@ function hasOnlyValidProperties(req, res, next) {
 }
 
 function hasProperties(...properties) {
-  // console.log("has props");
   return function (req, res, next) {
     const { data = {} } = req.body;
     try {
@@ -104,12 +100,6 @@ function dateNotInPast(dateString, timeString) {
   const reservationDate = new Date(dateString + "T" + timeString);
   return reservationDate > today;
 }
-
-//before 10:30 am
-// after 9:30 pm
-// hours and minutes
-// reservation_time
-//const [hours, minutes] = reservation_time
 
 function reservationEligibleTime(timeString) {
   let openTime = "10:30";
@@ -167,9 +157,7 @@ function hasValidValues(req, res, next) {
 
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.params;
-
   const reservation = await service.read(reservation_id);
-  // console.log("resId", reservation);
   if (reservation) {
     res.locals.reservation = reservation;
     return next();
@@ -180,11 +168,8 @@ async function reservationExists(req, res, next) {
   });
 }
 
-// validation for status US-6
-
 function validStatus(req, res, next) {
   const { status } = req.body.data;
-  console.log("line 188", status)
   const VALID_STATUSES = ["booked", "seated", "finished"];
   if (VALID_STATUSES.includes(status)) {
     return next();
@@ -194,17 +179,10 @@ function validStatus(req, res, next) {
     message: "Status is unknown",
   });
 }
-// function statusExist(req, res, next) {
-//   let status;
-//   if (status === "booked") {
-//     return next();
-//   }
-// }
 
 function statusIsBooked(req, res, next) {
   const { data = {} } = req.body;
   const status = data.status;
-  console.log("data", data);
   if (status && status !== "booked") {
     return next({
       status: 400,
@@ -216,7 +194,6 @@ function statusIsBooked(req, res, next) {
 
 function statusNotFinished(req, res, next) {
   const { status } = res.locals.reservation;
-  // console.log("status line 212", status)
   if (status === "finished") {
     return next({
       status: 400,
@@ -231,9 +208,7 @@ function read(req, res, next) {
 }
 
 async function create(req, res) {
-  // console.log("hello");
   const reservation = await service.create(req.body.data);
-  console.log("line 229", req.body.data);
   res.status(201).json({ data: reservation });
 }
 
@@ -242,7 +217,6 @@ async function update(req, res, next) {
     ...req.body.data,
     reservation_id: res.locals.reservation.reservation_id,
   };
-  // console.log("updatedRes", updatedReservation);
   const reservation = await service.update(updatedReservation);
   res.json({ data: reservation });
 }
@@ -250,7 +224,7 @@ async function update(req, res, next) {
 async function updateStatus(req, res, next) {
   const { reservation_id } = req.params;
   const { status } = req.body.data;
-  console.log("status", status)
+  console.log("status", status);
   const data = await service.updateStatus(reservation_id, status);
   res.json({ data });
 }

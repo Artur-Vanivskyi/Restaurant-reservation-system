@@ -6,7 +6,6 @@ function list() {
 
 function read(table_id) {
   return knex("tables").select("*").where({ table_id }).first();
-  // console.log("readId", table_id);
 }
 
 function create(table) {
@@ -43,8 +42,6 @@ function seat(reservation_id, table_id) {
 }
 
 function unseat({ table_id, reservation_id }) {
-  // console.log("yoyo", reservation_id)
-  // console.log("service yo", table_id, reservation_id);
   return knex.transaction(function (trx) {
     return trx("tables")
       .where({ table_id: table_id })
@@ -54,9 +51,9 @@ function unseat({ table_id, reservation_id }) {
       .then((updated) => {
         return trx("reservations")
           .where({ reservation_id })
-          .update({ status: "finished" })
-          // .returning("*")
-          // .then((updatedReservation) => updatedReservation[0]);
+          .update({ status: "finished" });
+        // .returning("*")
+        // .then((updatedReservation) => updatedReservation[0]);
       });
   });
 }
