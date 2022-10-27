@@ -12,18 +12,17 @@ function Reservations({ reservation }) {
     status,
   } = reservation;
 
-console.log("status", status)
+  console.log("status line 15", status, reservation_id);
 
-  function seatButton() {
-    if (status === "booked") {
-      return (
-        <a href={`/reservations/${reservation_id}/seat`}>
-          <button className="link-dark btn btn-info">Seat</button>
-        </a>
-      );
-    } else return null;
-  }
-
+  // function seatButton() {
+  //   if (status === "booked") {
+  //     return (
+  //       <a href={`/reservations/${reservation_id}/seat`} className="btn btn-info">
+  //         Seat
+  //       </a>
+  //     );
+  //   } else return null;
+  // }
 
   return (
     <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>
@@ -42,7 +41,15 @@ console.log("status", status)
           Status: {status}
         </p>
       </div>
-      <div>{seatButton()}</div>
+      {status === "booked" && (
+        <a
+          href={`/reservations/${reservation_id}/seat`}
+          role="button"
+          className="btn btn-info"
+        >
+          Seat
+        </a>
+      )}
     </div>
   );
 }
