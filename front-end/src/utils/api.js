@@ -101,8 +101,6 @@ export async function createTable(table, signal) {
 }
 
 export async function seatReservation(reservation_id, table_id, signal) {
-  // console.log("hey",reservation_id)
-  // console.log(table_id)
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
     method: "PUT",
@@ -114,8 +112,6 @@ export async function seatReservation(reservation_id, table_id, signal) {
 }
 
 export async function unseatTable(table_id, reservation_id) {
-  // console.log(table_id)
-  // console.log("API line 119", table_id, reservation_id);
   const url = new URL(`${API_BASE_URL}/tables/${table_id}/seat`);
   const options = {
     method: "DELETE",
@@ -134,3 +130,12 @@ export async function updateReservationStatus(status, reservation_id, signal) {
   };
   return await fetchJson(url, options);
 }
+
+// export async function searchReservation(mobile_number, signal) {
+//   const url = new URL(
+//     `${API_BASE_URL}/reservations?mobile_number=${mobile_number}`
+//   );
+//   return await fetchJson(url, signal)
+//     .then(formatReservationDate)
+//     .then(formatReservationTime);
+// }
