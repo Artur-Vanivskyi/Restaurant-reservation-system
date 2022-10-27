@@ -12,7 +12,7 @@ async function list(req, res, next) {
 function hasOnlyValidProperties(req, res, next) {
   const { data = {} } = req.body;
   const invalidStatuses = Object.keys(data).filter(
-    (field) => !REQUIRED_PROPERTIES.includes(field)
+    (field) => ![...REQUIRED_PROPERTIES, "reservation_id"].includes(field)
   );
 
   if (invalidStatuses.length) {

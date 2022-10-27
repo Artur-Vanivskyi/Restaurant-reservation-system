@@ -69,7 +69,7 @@ function hasProperties(...properties) {
 }
 
 const hasRequiredProperties = hasProperties(...REQUIRED_PROPERTIES);
-const hasValidPropertiesForUpdate = hasProperties(VALID_PROPERTIES);
+
 
 const dateFormat = /^\d\d\d\d-\d\d-\d\d$/;
 const timeFormat = /^\d\d:\d\d$/;
@@ -162,7 +162,7 @@ async function reservationExists(req, res, next) {
 
 function validStatus(req, res, next) {
   const { status } = req.body.data;
-  const VALID_STATUSES = ["booked", "seated", "finished"];
+  const VALID_STATUSES = ["booked", "seated", "finished", "cancelled"];
   if (VALID_STATUSES.includes(status)) {
     return next();
   }
@@ -233,7 +233,8 @@ module.exports = {
   ],
   update: [
     asyncErrorBoundary(reservationExists),
-    hasValidPropertiesForUpdate,
+    hasOnlyValidProperties,
+    hasRequiredProperties,
     hasValidValues,
     validStatus,
     asyncErrorBoundary(update),

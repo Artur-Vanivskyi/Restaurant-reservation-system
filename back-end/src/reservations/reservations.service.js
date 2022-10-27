@@ -5,6 +5,7 @@ function list(reservation_date) {
     .select("*")
     .where({ reservation_date })
     .whereNot({status: "finished"})
+    .whereNot({status: "cancelled"})
     .orderBy("reservation_time");
 }
 
@@ -43,9 +44,6 @@ function updateStatus(reservation_id, status) {
     .returning("*")
     .then((updatedReservation) => updatedReservation[0]);
 }
-
-
-
 
 
 module.exports = {
