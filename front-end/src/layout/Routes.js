@@ -9,6 +9,7 @@ import useQuery from "../utils/useQuery";
 import CreateTable from "../components/CreateTable";
 import Seat from "../components/Seat";
 import Search from "../components/Search";
+import EditReservation from "../components/EditReservation";
 /**
  * Defines all the routes for the application.
  *
@@ -44,7 +45,9 @@ function Routes() {
       <Route  path="/search">
         <Search />
       </Route>
-
+      <Route path="/reservations/:reservation_id/edit">
+        <EditReservation />
+      </Route>
       <Route>
         <NotFound />
       </Route>

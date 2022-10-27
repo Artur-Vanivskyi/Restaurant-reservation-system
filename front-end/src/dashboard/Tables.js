@@ -5,7 +5,7 @@ function Tables({ table, loadDashboard }) {
   const { table_name, capacity, table_id, reservation_id } = table;
 
   const handleFinish = (event) => {
-    console.log("handleFinish");
+    
     event.preventDefault();
     if (window.confirm("Is this table ready to seat new guests?") === true) {
       unseatTable(table_id)

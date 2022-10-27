@@ -1,6 +1,7 @@
 import React from "react";
+import { updateReservationStatus } from "../utils/api";
 
-function Reservations({ reservation }) {
+function Reservations({ reservation, loadDashboard }) {
   const {
     reservation_id,
     first_name,
@@ -11,6 +12,21 @@ function Reservations({ reservation }) {
     people,
     status,
   } = reservation;
+
+  const handleCancel = () => {
+    if (
+      window.confirm(
+        "Do you want to cancel this reservation? This cannot be undone."
+      )
+    ) {
+      const abortController = new AbortController();
+      updateReservationStatus({status: "cancelled"}, reservation_id, abortController.signal)
+        .then(loadDashboard)
+        .catch((error) => console.log(error));
+
+      return () => abortController.abort();
+    }
+  };
 
   return (
     <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>
@@ -38,6 +54,20 @@ function Reservations({ reservation }) {
           Seat
         </a>
       )}
+      <a
+        href={`/reservations/${reservation_id}/edit`}
+        role="button"
+        className="btn btn-secondary mt-2"
+      >
+        Edit
+      </a>
+      <button
+        data-reservation-id-cancel={reservation.reservation_id}
+        className="btn btn-secondary mt-2"
+        onClick={handleCancel}
+      >
+        Cancel
+      </button>
     </div>
   );
 }

@@ -6,6 +6,7 @@ function ReservationForm({
   handleSubmit,
   formData,
 }) {
+  console.log("resform", formData)
   return (
     <div className="mr-3 ml-3">
       <h1>Reservation</h1>
@@ -73,6 +74,7 @@ function ReservationForm({
             onChange={handleChange}
             value={formData.reservation_time}
             placeholder="HH:MM"
+            step="60"
             required
           />
         </div>
