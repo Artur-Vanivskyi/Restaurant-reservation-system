@@ -105,7 +105,7 @@ function hasValidValues(req, res, next) {
   if (!timeIsValid(reservation_time)) {
     return next({
       status: 400,
-      message: "reservation_time must be in HH:MM:SS format",
+      message: "reservation_time must be in HH:MM format",
     });
   }
   if (!dateIsValid(reservation_date)) {
@@ -151,7 +151,7 @@ async function reservationExists(req, res, next) {
   const { reservation_id } = req.params;
   const reservation = await service.read(reservation_id);
   if (reservation) {
-    res.locals.reservation = reservation;
+    res.locals.reservation = {...reservation, reservation_time: reservation.reservation_time.substring(0,5)};
     return next();
   }
   next({
