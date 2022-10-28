@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
 import NotFound from "./NotFound";
@@ -10,6 +9,7 @@ import CreateTable from "../components/CreateTable";
 import Seat from "../components/Seat";
 import Search from "../components/Search";
 import EditReservation from "../components/EditReservation";
+
 /**
  * Defines all the routes for the application.
  *
@@ -20,7 +20,7 @@ import EditReservation from "../components/EditReservation";
 function Routes() {
   const query = useQuery();
   const date = query.get("date");
-  // console.log(date)
+
   return (
     <Switch>
       <Route exact={true} path="/">
@@ -32,7 +32,6 @@ function Routes() {
       <Route path="/dashboard">
         <Dashboard date={date ? date : today()} />
       </Route>
-
       <Route path="/reservations/new">
         <CreateReservation />
       </Route>
@@ -42,7 +41,7 @@ function Routes() {
       <Route path="/reservations/:reservation_id/seat">
         <Seat />
       </Route>
-      <Route  path="/search">
+      <Route path="/search">
         <Search />
       </Route>
       <Route path="/reservations/:reservation_id/edit">

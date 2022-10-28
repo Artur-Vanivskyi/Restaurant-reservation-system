@@ -4,6 +4,7 @@ import { listTables, readReservation, seatReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
 function Seat() {
+  
   const { reservation_id } = useParams();
 
   const history = useHistory();

@@ -33,14 +33,12 @@ function CreateTable() {
       ...formData,
       capacity: Number(formData.capacity),
     };
-console.log("line 36----[-------", formDataFormated)
     try {
       await createTable(formDataFormated, abortController.signal);
       history.push("/dashboard");
     } catch (err) {
       setTableErrors(err)
     }
-
     return () => abortController.abort();
   };
 

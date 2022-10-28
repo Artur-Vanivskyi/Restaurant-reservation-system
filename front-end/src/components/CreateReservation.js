@@ -33,9 +33,7 @@ function CreateReservation() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const abortController = new AbortController();
-
     const formDataFormated = { ...formData, people: Number(formData.people) };
     try {
       await createReservation(formDataFormated, abortController.signal);
@@ -43,7 +41,6 @@ function CreateReservation() {
     } catch (err) {
       setFormErrors(err);
     }
-
     return () => abortController.abort();
   };
   

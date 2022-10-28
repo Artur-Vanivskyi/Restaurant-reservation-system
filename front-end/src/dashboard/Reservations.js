@@ -67,15 +67,15 @@ function Reservations({ reservation, loadDashboard }) {
           Edit
         </a>
       )}
-{status === "booked" &&
-      <button
-        data-reservation-id-cancel={reservation.reservation_id}
-        className="btn btn-secondary mt-2"
-        onClick={handleCancel}
-      >
-        Cancel
-      </button>
-}
+      {status === "booked" && (
+        <button
+          data-reservation-id-cancel={reservation.reservation_id}
+          className="btn btn-secondary mt-2"
+          onClick={handleCancel}
+        >
+          Cancel
+        </button>
+      )}
     </div>
   );
 }
