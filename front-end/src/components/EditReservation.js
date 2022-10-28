@@ -3,8 +3,6 @@ import { useHistory, useParams } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 import { readReservation, updateReservation } from "../utils/api";
 import ReservationForm from "./ReservationForm";
-import formatReservationTime from "../utils/format-reservation-time";
-import { formatAsTime } from "../utils/date-time";
 
 function EditReservation() {
   const history = useHistory();
@@ -45,9 +43,11 @@ function EditReservation() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const abortController = new AbortController();
+
     updateReservation(formDataFormated, reservation_id, abortController.signal)
-      
-      .then(() => history.goBack())
+      .then(() =>
+        history.push(`/dashboard?date=${formDataFormated.reservation_date}`)
+      )
       .catch(setFormErrors);
 
     return () => abortController.abort();

@@ -20,7 +20,11 @@ function Reservations({ reservation, loadDashboard }) {
       )
     ) {
       const abortController = new AbortController();
-      updateReservationStatus({status: "cancelled"}, reservation_id, abortController.signal)
+      updateReservationStatus(
+        { status: "cancelled" },
+        reservation_id,
+        abortController.signal
+      )
         .then(loadDashboard)
         .catch((error) => console.log(error));
 
@@ -54,13 +58,16 @@ function Reservations({ reservation, loadDashboard }) {
           Seat
         </a>
       )}
-      <a
-        href={`/reservations/${reservation_id}/edit`}
-        role="button"
-        className="btn btn-secondary mt-2"
-      >
-        Edit
-      </a>
+      {status === "booked" && (
+        <a
+          href={`/reservations/${reservation_id}/edit`}
+          role="button"
+          className="btn btn-secondary mt-2"
+        >
+          Edit
+        </a>
+      )}
+{status === "booked" &&
       <button
         data-reservation-id-cancel={reservation.reservation_id}
         className="btn btn-secondary mt-2"
@@ -68,6 +75,7 @@ function Reservations({ reservation, loadDashboard }) {
       >
         Cancel
       </button>
+}
     </div>
   );
 }
