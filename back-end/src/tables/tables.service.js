@@ -14,14 +14,6 @@ function create(table) {
     .then((createdTable) => createdTable[0]);
 }
 
-// function update(table){
-//   return knex("tables")
-//   .where({table_id: table.table_id})
-//   .update(table)
-//   .returning("*")
-//   .then((updatedTable) => updatedTable[0])
-// }
-
 function seat(reservation_id, table_id) {
   console.log("resId", reservation_id);
   console.log("tabId", table_id);
@@ -52,8 +44,6 @@ function unseat({ table_id, reservation_id }) {
         return trx("reservations")
           .where({ reservation_id })
           .update({ status: "finished" });
-        // .returning("*")
-        // .then((updatedReservation) => updatedReservation[0]);
       });
   });
 }

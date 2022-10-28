@@ -28,7 +28,6 @@ const VALID_PROPERTIES = [
 
 
 async function list(req, res) {
-  //const today = new Date().toLocaleDateString().replaceAll("/", "-");
   const { date, mobile_number } = req.query;
   const reservation = await (mobile_number
     ? service.search(mobile_number)
@@ -70,7 +69,6 @@ function hasProperties(...properties) {
 
 const hasRequiredProperties = hasProperties(...REQUIRED_PROPERTIES);
 
-
 const dateFormat = /^\d\d\d\d-\d\d-\d\d$/;
 const timeFormat = /^\d\d:\d\d$/;
 
@@ -101,7 +99,6 @@ function reservationEligibleTime(timeString) {
 
 function hasValidValues(req, res, next) {
   const { reservation_date, reservation_time, people } = req.body.data;
-  // console.log("line 122", status)
   if (!timeIsValid(reservation_time)) {
     return next({
       status: 400,
@@ -216,7 +213,6 @@ async function update(req, res, next) {
 async function updateStatus(req, res, next) {
   const { reservation_id } = req.params;
   const { status } = req.body.data;
-  console.log("status", status);
   const data = await service.updateStatus(reservation_id, status);
   res.json({ data });
 }
