@@ -17,34 +17,39 @@ function Menu() {
           to="/"
         >
           <div className="sidebar-brand-text mx-3">
-            <span>Periodic Tables</span>
+            <h3>Periodic Tables</h3>
           </div>
         </Link>
         <hr className="sidebar-divider my-0" />
         <ul className="nav navbar-nav text-light" id="accordionSidebar">
-          <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">
-              <span className="oi oi-dashboard" />
-              &nbsp;Dashboard
-            </Link>
+          <li className="row">
+            <li className="nav-item">
+              <Link className="nav-link mr-2" to="/dashboard">
+                <span className="oi oi-dashboard" />
+                &nbsp;Dashboard
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link ml-5" to="/search">
+                <span className="oi oi-magnifying-glass" />
+                &nbsp;Search
+              </Link>
+            </li>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/search">
-              <span className="oi oi-magnifying-glass" />
-              &nbsp;Search
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/reservations/new">
-              <span className="oi oi-plus" />
-              &nbsp;New Reservation
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/tables/new">
-              <span className="oi oi-layers" />
-              &nbsp;New Table
-            </Link>
+          
+          <li className="row">
+            <li className="nav-item">
+              <Link className="nav-link" to="/reservations/new">
+                <span className="oi oi-plus" />
+                &nbsp;New Reservation
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link ml-3" to="/tables/new">
+                <span className="oi oi-layers" />
+                &nbsp;New Table
+              </Link>
+            </li>
           </li>
         </ul>
         <div className="text-center d-none d-md-inline">
