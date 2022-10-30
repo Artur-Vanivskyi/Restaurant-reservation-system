@@ -7,6 +7,11 @@ import { previous, next, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import Tables from "./Tables";
 
+import { GrPrevious, GrNext } from "react-icons/gr";
+import { MdToday } from "react-icons/md";
+import { BsCheckLg } from "react-icons/bs";
+import { FaCheckCircle } from "react-icons/fa";
+
 /**
  * Defines the dashboard page.
  * @param date
@@ -67,40 +72,57 @@ function Dashboard({ date }) {
 
   return (
     <main>
-      <h1>Dashboard</h1>
-      <div>
-        <button
-          type="button"
-          className="btn btn-secondary mr-3"
-          onClick={handlePrevious}
-        >
-          Previous
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary mr-3"
-          onClick={handleToday}
-        >
-          Today
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={handleNext}
-        >
-          Next
-        </button>
+      <div className="d-flex flex-column align-items-center bd-highlight mb-3">
+        <div className="p-1 bd-highlight ">
+          <h1>Dashboard</h1>
+        </div>
+        <div className="p-1 bd-highlight">
+          <button
+            type="button"
+            className="btn btn-info mr-3"
+            onClick={handlePrevious}
+          >
+            <GrPrevious className="mb-1" />
+            {"\n"}
+            Previous
+          </button>
+          <button
+            type="button"
+            className="btn btn-info mr-3"
+            onClick={handleToday}
+          >
+            Today{"\n"}
+            <MdToday />
+          </button>
+          <button type="button" className="btn btn-info" onClick={handleNext}>
+            Next {"\n"}
+            <GrNext className="mb-1" />
+          </button>
+        </div>
+        <div className="p-2 bd-highlight ">
+          <h3 className="mb-0">Reservations for date {date}</h3>
+        </div>
       </div>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date {date}</h4>
-      </div>
+
       <div className="container">
         <div className="row">
           <div className="col-sm-6">
+            <h2 className="row justify-content-center">
+              Reservation List
+              <BsCheckLg className="ml-3" />
+            </h2>
             <ErrorAlert error={reservationsError} />
+            {reservations.length === 0 && (
+              <h4 class="alert alert-info" role="alert">
+            No reservations found on date: {date}
+            </h4>
+            )}
             {displayedReservations}
           </div>
           <div className="col-sm-6">
+            <h2 className="row justify-content-center">
+              Table List <FaCheckCircle className="ml-3" />
+            </h2>
             <ErrorAlert error={tablesErrors} />
             {displayTables}
           </div>

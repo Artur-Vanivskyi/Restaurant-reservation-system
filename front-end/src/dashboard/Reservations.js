@@ -1,5 +1,8 @@
 import React from "react";
 import { updateReservationStatus } from "../utils/api";
+import {GiCancel} from 'react-icons/gi';
+import {GiConfirmed} from 'react-icons/gi';
+import {FiEdit2} from 'react-icons/fi'
 
 function Reservations({ reservation, loadDashboard }) {
   const {
@@ -33,49 +36,65 @@ function Reservations({ reservation, loadDashboard }) {
   };
 
   return (
-    <div className="card border-info mb-3" style={{ maxWidth: "20rem" }}>
+    <div className="card border-info mb-3 " style={{ maxWidth: "30rem"}}>
       <h5 className="card-header">
-        {first_name}, {last_name}
+        Reservation for: {first_name}, {last_name}
       </h5>
       <div className="card-body">
-        <h5 className="card-title">{reservation_date}</h5>
-        <p className="card-text">Time: {reservation_time}</p>
-        <p className="card-text">Party Size: {people}</p>
-        <p className="card-text">Phone Number: {mobile_number}</p>
+        <h5 className="card-title">Reservation date: {reservation_date}</h5>
+        <p className="card-text">
+          <b>Time:</b> {reservation_time}
+        </p>
+        <p className="card-text">
+          <b>Party Size:</b> {people}
+        </p>
+        <p className="card-text">
+          <b>Phone Number:</b> {mobile_number}
+        </p>
         <p
           className="card-text"
           data-reservation-id-status={reservation.reservation_id}
         >
-          Status: {status}
+          <b>Status:</b> {status}
         </p>
       </div>
-      {status === "booked" && (
-        <a
-          href={`/reservations/${reservation_id}/seat`}
-          role="button"
-          className="btn btn-info"
-        >
-          Seat
-        </a>
-      )}
-      {status === "booked" && (
-        <a
-          href={`/reservations/${reservation_id}/edit`}
-          role="button"
-          className="btn btn-secondary mt-2"
-        >
-          Edit
-        </a>
-      )}
-      {status === "booked" && (
-        <button
-          data-reservation-id-cancel={reservation.reservation_id}
-          className="btn btn-secondary mt-2"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
-      )}
+      <div className="card-footer">
+        <div className="d-flex justify-content-end">
+          <div className="mr-3">
+            {status === "booked" && (
+              <a
+                href={`/reservations/${reservation_id}/seat`}
+                role="button"
+                className="btn btn-info"
+              >
+                <GiConfirmed className="mb-1" /> Seat
+              </a>
+            )}
+          </div>
+          <div className="mr-3">
+            {status === "booked" && (
+              <a
+                href={`/reservations/${reservation_id}/edit`}
+                role="button"
+                className="btn btn-secondary"
+              >
+                <FiEdit2 className="mb-1" /> Edit
+              </a>
+            )}
+          </div>
+          <div>
+            {status === "booked" && (
+              <button
+                data-reservation-id-cancel={reservation.reservation_id}
+                className="btn btn-secondary"
+                onClick={handleCancel}
+              >
+               <GiCancel className="mb-1"/> Cancel
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

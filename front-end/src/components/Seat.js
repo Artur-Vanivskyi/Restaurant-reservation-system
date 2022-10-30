@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
 import { listTables, readReservation, seatReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
+import { GiCancel } from "react-icons/gi";
+import { GiConfirmed } from "react-icons/gi";
 
 function Seat() {
-  
   const { reservation_id } = useParams();
 
   const history = useHistory();
@@ -60,27 +61,39 @@ function Seat() {
 
   const displayErrors = errors && <ErrorAlert error={errors} />;
   return (
-    <>
-      <h2>Seat Reservation</h2>
-      <form className="form-inline" onSubmit={handleSubmit}>
-        {displayErrors}
-        <h3>Available Tables: </h3>
-        <select required name="table_id" onChange={handleChange}>
-          <option>---Select an option---</option>
-          {availableTables}
-        </select>
-        <button type="submit" className="btn btn-info">
-          Submit
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={handleCancel}
-        >
-          Cancel
-        </button>
-      </form>
-    </>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <h2>Seat Reservation</h2>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <form className="form-inline" onSubmit={handleSubmit}>
+            {displayErrors}
+            <h3>Available Tables: </h3>
+            <div className="mr-3">
+              <select required name="table_id" onChange={handleChange}>
+                <option>---Select an option---</option>
+                {availableTables}
+              </select>
+            </div>
+            <div>
+              <button type="submit" className="btn btn-info mr-3">
+                <GiConfirmed className="mb-1" /> Submit
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleCancel}
+              >
+                <GiCancel className="mb-1" /> Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 

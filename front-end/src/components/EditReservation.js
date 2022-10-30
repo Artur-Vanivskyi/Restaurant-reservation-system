@@ -21,7 +21,7 @@ function EditReservation() {
   const [formErrors, setFormErrors] = useState(null);
 
   useEffect(() => {
-    loadReservations();
+    loadReservations()
   }, [reservation_id]);
 
   async function loadReservations() {

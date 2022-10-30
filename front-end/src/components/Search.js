@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "../dashboard/Reservations";
+import { FaSearchPlus } from "react-icons/fa";
 
 function Search() {
   const initialFormState = {
@@ -41,7 +42,7 @@ function Search() {
   const displayReservationByMobileNumber = reservations.length ? (
     <div className="container mt-3">
       <div className="row justify-content-center">
-        <div className="col col-8">{reservationsList}</div>
+        <div className="col col-4">{reservationsList}</div>
       </div>
     </div>
   ) : (
@@ -50,8 +51,11 @@ function Search() {
 
   return (
     <div>
-      {displayReservationErrors}
-      <form className="form-inline mt-5" onSubmit={handleFind}>
+      <div>{displayReservationErrors}</div>
+      <form
+        className="form-inline d-flex justify-content-center mt-5"
+        onSubmit={handleFind}
+      >
         <div className="form-group mx-sm-3 mb-2">
           <input
             name="mobile_number"
@@ -64,10 +68,10 @@ function Search() {
           />
         </div>
         <button type="submit" className="btn btn-info mb-2">
-          Find
+          <FaSearchPlus className="mb-1" /> {"\n"} Find
         </button>
       </form>
-      {displayReservationByMobileNumber}
+      <div>{displayReservationByMobileNumber}</div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { unseatTable } from "../utils/api";
+import {MdDone} from 'react-icons/md'
 
 function Tables({ table, loadDashboard }) {
   const { table_name, capacity, table_id, reservation_id } = table;
@@ -26,7 +27,7 @@ function Tables({ table, loadDashboard }) {
             {table.reservation_id ? (
               <>
                 <div
-                  className="col btn border border-warning rounded text-warning"
+                  className="col btn border border-dark rounded text-dark mr-2"
                   data-table-id-status={table.table_id}
                   style={{ cursor: "default" }}
                 >
@@ -35,7 +36,7 @@ function Tables({ table, loadDashboard }) {
               </>
             ) : (
               <div
-                className="col btn border border-success rounded text-success"
+                className="col btn border border-success rounded"
                 data-table-id-status={table.table_id}
                 style={{ cursor: "default" }}
               >
@@ -46,10 +47,10 @@ function Tables({ table, loadDashboard }) {
               <button
                 type="button"
                 data-table-id-finish={table.table_id}
-                className="btn btn-success"
+                className="btn btn-info"
                 onClick={handleFinish}
               >
-                Finish
+                <MdDone /> Finish
               </button>
             ) : null}
           </div>
