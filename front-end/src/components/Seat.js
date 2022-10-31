@@ -62,17 +62,17 @@ function Seat() {
   const displayErrors = errors && <ErrorAlert error={errors} />;
   return (
     <div className="container">
-      <div className="row">
-        <div className="col">
+      <div className="row justify-content-center mb-3">
+        
           <h2>Seat Reservation</h2>
-        </div>
+       
       </div>
-      <div className="row">
-        <div className="col">
+
+      <div className="row justify-content-center">
           <form className="form-inline" onSubmit={handleSubmit}>
             {displayErrors}
             <h3>Available Tables: </h3>
-            <div className="mr-3">
+            <div className="mr-3 ml-2">
               <select required name="table_id" onChange={handleChange}>
                 <option>---Select an option---</option>
                 {availableTables}
@@ -91,7 +91,7 @@ function Seat() {
               </button>
             </div>
           </form>
-        </div>
+       
       </div>
     </div>
   );

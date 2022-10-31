@@ -36,7 +36,8 @@ function Reservations({ reservation, loadDashboard }) {
   };
 
   return (
-    <div className="card border-info mb-3 " style={{ maxWidth: "30rem"}}>
+    
+    <div className="card border-info mb-4 mr-3 col-4 p-0" style={{ maxWidth: "30rem"}}>
       <h5 className="card-header">
         Reservation for: {first_name}, {last_name}
       </h5>
@@ -96,6 +97,7 @@ function Reservations({ reservation, loadDashboard }) {
         </div>
       </div>
     </div>
+   
   );
 }
 

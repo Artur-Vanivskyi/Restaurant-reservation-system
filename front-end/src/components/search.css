@@ -1,0 +1,11 @@
+.rowlist {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top: 3rem;
+}
+
+.visible_number {
+    text-align: center;
+    margin-top: 2rem;
+}
