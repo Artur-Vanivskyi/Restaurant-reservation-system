@@ -15,8 +15,6 @@ function create(table) {
 }
 
 function seat(reservation_id, table_id) {
-  console.log("resId", reservation_id);
-  console.log("tabId", table_id);
   return knex.transaction(function (trx) {
     return trx("tables")
       .where({ table_id })
