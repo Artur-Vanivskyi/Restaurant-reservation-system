@@ -10,7 +10,7 @@ function ReservationForm({
 }) {
   return (
     <div className="container" style={{ width: "60%" }}>
-      <h1 style={{textAlign:"center"}} className="mb-3">New Reservation</h1>
+      {/* <h1 style={{textAlign:"center"}} className="mb-3">New Reservation</h1> */}
       <form onSubmit={handleSubmit}>
         <div className="form-group row">
           <label className="col-sm-2" htmlFor="first_name">

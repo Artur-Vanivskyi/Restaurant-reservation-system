@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "../dashboard/Reservations";
@@ -7,7 +6,7 @@ import { FaSearchPlus } from "react-icons/fa";
 import "./search.css";
 
 function Search() {
-  const history = useHistory();
+  
   const initialFormState = {
     mobile_number: "",
   };
@@ -43,7 +42,6 @@ function Search() {
     listReservations(formData, abortController.signal)
       .then(setReservations)
       .then(() => setNumberVisible(true))
-      // .then(()=> history.push("/"))
       .catch(setReservationsError);
 
     return () => abortController.abort();

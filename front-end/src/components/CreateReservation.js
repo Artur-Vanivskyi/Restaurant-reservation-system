@@ -49,6 +49,7 @@ function CreateReservation() {
   return (
     <div>
       {displayErrors}
+       <h1 style={{textAlign:"center"}} className="mb-3">New Reservation</h1>
       <ReservationForm
         handleChange={handleChange}
         handleCancel={handleCancel}
