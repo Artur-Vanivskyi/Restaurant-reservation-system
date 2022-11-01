@@ -1,9 +1,9 @@
 import React from "react";
 import { unseatTable } from "../utils/api";
-import {MdDone} from 'react-icons/md'
+import { MdDone } from 'react-icons/md'
 
 function Tables({ table, loadDashboard }) {
-  const { table_name, capacity, table_id, reservation_id } = table;
+  const { table_name, capacity, table_id } = table;
 
   const handleFinish = (event) => {
     

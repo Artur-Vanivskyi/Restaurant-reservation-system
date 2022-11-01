@@ -12,25 +12,21 @@ function Seat() {
 
   const [tables, setTables] = useState([]);
   const [tablesErrors, setTablesErrors] = useState(null);
-  const [reservations, setReservations] = useState([]);
+  const [reservation, setReservations] = useState([]);
   const [reservationsErrors, setReservationsErrors] = useState(null);
-  const [errors, setErrors] = useState(null);
+
   const [tableId, setTableId] = useState("");
 
-  useEffect(loadTables, []);
-
-  function loadTables() {
-    const abortController = new AbortController();
-    listTables(abortController.signal).then(setTables).catch(setTablesErrors);
-    return () => abortController.abort();
-  }
   useEffect(loadReservations, [reservation_id]);
 
   function loadReservations() {
     const abortController = new AbortController();
+    setReservationsErrors(null);
+    setTablesErrors(null);
     readReservation(reservation_id, abortController.signal)
       .then(setReservations)
       .catch(setReservationsErrors);
+    listTables(abortController.signal).then(setTables).catch(setTablesErrors);
     return () => abortController.abort();
   }
 
@@ -45,7 +41,7 @@ function Seat() {
     const abortController = new AbortController();
     seatReservation(reservation_id, tableId, abortController.signal)
       .then(() => history.push("/dashboard"))
-      .catch((error) => setErrors(error));
+      .catch((error) => setTablesErrors(error));
 
     return () => abortController.abort();
   };
@@ -59,39 +55,63 @@ function Seat() {
     setTableId(target.value);
   };
 
-  const displayErrors = errors && <ErrorAlert error={errors} />;
+  //const displayErrors = errors && <ErrorAlert error={errors} />;
+
   return (
     <div className="container">
       <div className="row justify-content-center mb-3">
-        
-          <h2>Seat Reservation</h2>
-       
+        <h2>Seat Reservation</h2>
+      </div>
+      <div className="row justify-content-center mb-3">
+        <div
+          className="card border-info mb-4 mr-3 col-4 p-0"
+          style={{ maxWidth: "30rem" }}
+        >
+          <h5 className="card-header">
+            Reservation for: {reservation.first_name}, {reservation.last_name}
+          </h5>
+          <div className="card-body">
+            <h5 className="card-title">
+              Reservation date: {reservation.reservation_date}
+            </h5>
+            <p className="card-text">
+              <b>Time:</b> {reservation.reservation_time}
+            </p>
+            <p className="card-text">
+              <b>Party Size:</b> {reservation.people}
+            </p>
+            <p className="card-text">
+              <b>Phone Number:</b> {reservation.mobile_number}
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="row justify-content-center">
-          <form className="form-inline" onSubmit={handleSubmit}>
-            {displayErrors}
-            <h3>Available Tables: </h3>
-            <div className="mr-3 ml-2">
-              <select required name="table_id" onChange={handleChange}>
-                <option>---Select an option---</option>
-                {availableTables}
-              </select>
-            </div>
-            <div>
-              <button type="submit" className="btn btn-info mr-3">
-                <GiConfirmed className="mb-1" /> Submit
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleCancel}
-              >
-                <GiCancel className="mb-1" /> Cancel
-              </button>
-            </div>
-          </form>
-       
+        <ErrorAlert error={reservationsErrors} />
+        <ErrorAlert error={tablesErrors} />
+
+        <form className="form-inline" onSubmit={handleSubmit}>
+          <h3>Available Tables: </h3>
+          <div className="mr-3 ml-2">
+            <select required name="table_id" onChange={handleChange}>
+              <option>---Select an option---</option>
+              {availableTables}
+            </select>
+          </div>
+          <div>
+            <button type="submit" className="btn btn-info mr-3">
+              <GiConfirmed className="mb-1" /> Submit
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleCancel}
+            >
+              <GiCancel className="mb-1" /> Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

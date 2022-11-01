@@ -87,7 +87,7 @@ function Search() {
           <FaSearchPlus className="mb-1" /> {"\n"} Find
         </button>
       </form>
-      <div class="visible_number">
+      <div className="visible_number">
         {numberVisible ? (
           <h4>Reservations for mobile number: {formData.mobile_number}</h4>
         ) : null}

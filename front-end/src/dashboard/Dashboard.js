@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listReservations, listTables, unseatTable } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "./Reservations";
@@ -113,7 +113,7 @@ function Dashboard({ date }) {
             </h2>
             <ErrorAlert error={reservationsError} />
             {reservations.length === 0 && (
-              <h4 class="alert alert-info" role="alert">
+              <h4 className="alert alert-info" role="alert">
             No reservations found on date: {date}
             </h4>
             )}
