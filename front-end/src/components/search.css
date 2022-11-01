@@ -9,3 +9,22 @@
     text-align: center;
     margin-top: 2rem;
 }
+
+
+@media all and (max-width: 600px){
+    .rowlist {
+        display: block;
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-top: 3rem;
+    }
+}
+
+@media all and (max-width: 1024px){
+    .rowlist {
+        display: block;
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-top: 3rem;
+    }
+}

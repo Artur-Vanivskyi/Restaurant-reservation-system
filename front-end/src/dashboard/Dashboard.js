@@ -61,7 +61,7 @@ function Dashboard({ date }) {
   const displayedReservations = reservations.map((reservation) => (
     <Reservations
       key={reservation.reservation_id}
-      loadDashboard={loadDashboard}
+      loadReservations={loadDashboard}
       reservation={reservation}
     />
   ));

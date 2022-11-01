@@ -4,7 +4,7 @@ import {GiCancel} from 'react-icons/gi';
 import {GiConfirmed} from 'react-icons/gi';
 import {FiEdit2} from 'react-icons/fi'
 
-function Reservations({ reservation, loadDashboard }) {
+function Reservations({ reservation, loadReservations}) {
   const {
     reservation_id,
     first_name,
@@ -16,7 +16,8 @@ function Reservations({ reservation, loadDashboard }) {
     status,
   } = reservation;
 
-  const handleCancel = () => {
+  const handleCancel = (event) => {
+    // event.preventDefault();
     if (
       window.confirm(
         "Do you want to cancel this reservation? This cannot be undone."
@@ -28,7 +29,7 @@ function Reservations({ reservation, loadDashboard }) {
         reservation_id,
         abortController.signal
       )
-        .then(loadDashboard)
+        .then(()=> loadReservations(event))
         .catch((error) => console.log(error));
 
       return () => abortController.abort();
