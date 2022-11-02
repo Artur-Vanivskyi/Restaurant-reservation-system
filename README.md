@@ -43,7 +43,9 @@ You can create a reservation in the next way. First you can create a new reserva
 You can edit any of the reservations that have not been seated by clicking on the `Edit` button found at the bottom of each reservation card. Clicking the edit button will redirect the user to an edit reservation page which will allow the user to edit any of the customer information. 
 
 <br />
+
 ![Edit Reservation](/assets/EditReservation.png)
+
 
 ### Cancel Reservation
 User has the ability to cancel any reservation that has been created and yet to be seated. Clicking on the `Cancel` button at the bottom of each reservation card will generate a Windows Confirmation dialog box will appear asking the user to confirm the cancellation. 
