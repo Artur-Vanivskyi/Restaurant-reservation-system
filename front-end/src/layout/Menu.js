@@ -1,5 +1,5 @@
 import React from "react";
-import {RiRestaurantFill} from 'react-icons/ri';
+
 
 import { Link } from "react-router-dom";
 
@@ -21,7 +21,6 @@ function Menu() {
             <h3>Periodic Tables</h3>
           </div>
         </Link>
-        <RiRestaurantFill style={{color:"white", fontSize:"3rem"}}/>
         <hr className="sidebar-divider my-0" />
         <ul className="nav navbar-nav text-light" id="accordionSidebar">
           <li className="row">
