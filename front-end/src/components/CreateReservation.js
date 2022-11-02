@@ -76,7 +76,7 @@ function CreateReservation() {
     }
 
     setFormErrors(errors);
-console.log(formErrors)
+
     createReservation(formDataFormated, abortController.signal)
       .then(()=> {
         history.push(`/dashboard?date=${formData.reservation_date}`)})

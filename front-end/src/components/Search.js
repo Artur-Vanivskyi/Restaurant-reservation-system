@@ -34,7 +34,7 @@ function Search() {
   // }
 
   const handleFind = (event) => {
-    console.log("handlefind line 42");
+    // console.log("handlefind line 42");
 
     event.preventDefault();
     const abortController = new AbortController();
