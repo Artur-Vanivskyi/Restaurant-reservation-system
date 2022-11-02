@@ -1,4 +1,4 @@
-# Periodic Tbales: Restaurant Reservation Application
+# Periodic Tables: Restaurant Reservation Application
 
 ## Introduction
 Periodic Tables is a restaurant reservation booking and table management system. Users of this application can view, create, edit, and delete reservations. Users can also search for reservations via mobile-number. Users can create new tables and seat reservations at a specific table. When seating the reservation at a table, validation will occur to ensure that the table size is of capable capacity for the reservation.
@@ -26,11 +26,13 @@ _Font end:_
 | `/reservations/:reservationId/status` |PUT | updates only the status of a reservation |
 | `/tables` |GET | returns all Tables |
 | `/tables` |POST| creates and returns a new table |
-| `/tables:table_id/seat` |PUT| updates a table with a reservationId and changes status to "occupied" |
-| `/tables:table_id/seat` |DELETE | updates a table by deleting reservationId and changes status to "free" |
+| `/tables:table_id/seat` |PUT| updates a table with a reservation Id and changes status to "occupied" |
+| `/tables:table_id/seat` |DELETE | updates a table by deleting reservation Id and changes status to "free" |
 
+<br />
 
-##Features
+## Features
+
 ### Create Reservation
 You can create a reservation in the next way. First you can create a new reservation by clicking on the `+ New Reservation` at the top of the page. Each reservation requires a first name, last name, mobile number, party size, reservation time, and reservation date.
 > Errors will be thrown if one of the following were to occur: Invalid mobile number length, any of the fields are empty, date of reservation must be placed for the future, and the reservation time must be valid as well being between the restaurant operating hours.
@@ -48,7 +50,7 @@ You can edit any of the reservations that have not been seated by clicking on th
 
 
 ### Cancel Reservation
-User has the ability to cancel any reservation that has been created and yet to be seated. Clicking on the `Cancel` button at the bottom of each reservation card will generate a Windows Confirmation dialog box will appear asking the user to confirm the cancellation. 
+User has the ability to cancel any reservation that has been created and yet to be seated. Clicking on the `Cancel` button at the bottom of each reservation card will generate a Window Confirmation dialog box and will be asking the user to confirm the cancellation. 
 
 ### Seat Reservation
 To seat a reservation, simply click on the `Seat` button, this will redirect the user to a new page where the user can view the reservation party size. It will also display to the user a dropdown table which will list all of the tables and the table's max seating. 
