@@ -4,7 +4,7 @@ const reservationService = require("../reservations/reservations.service");
 
 const REQUIRED_PROPERTIES = ["table_name", "capacity"];
 
-async function list(req, res, next) {
+async function list(req, res) {
   const table = await service.list();
   res.json({ data: table });
 }
@@ -141,23 +141,23 @@ async function tableExists(req, res, next) {
   });
 }
 
-function read(req, res, next) {
+function read(req, res) {
   res.json({ data: res.locals.table });
 }
 
-async function create(req, res, next) {
+async function create(req, res) {
   const table = await service.create(req.body.data);
   res.status(201).json({ data: table });
 }
 
-async function seat(req, res, next) {
+async function seat(req, res) {
   const { reservation_id } = req.body.data;
   const { table_id } = res.locals.table;
   const data = await service.seat(reservation_id, table_id);
   res.json({ data });
 }
 
-async function unseat(req, res, next) {
+async function unseat(req, res) {
   const { table_id } = req.params;
   const table = res.locals.table;
   const data = await service.unseat(table);

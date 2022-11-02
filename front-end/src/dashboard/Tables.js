@@ -3,10 +3,10 @@ import { unseatTable } from "../utils/api";
 import { MdDone } from 'react-icons/md'
 
 function Tables({ table, loadDashboard }) {
+
   const { table_name, capacity, table_id } = table;
 
   const handleFinish = (event) => {
-    
     event.preventDefault();
     if (window.confirm("Is this table ready to seat new guests?") === true) {
       unseatTable(table_id)

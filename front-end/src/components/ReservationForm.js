@@ -1,6 +1,6 @@
 import React from "react";
-import {GiCancel} from 'react-icons/gi';
-import {GiConfirmed} from 'react-icons/gi';
+import { GiCancel } from "react-icons/gi";
+import { GiConfirmed } from "react-icons/gi";
 
 function ReservationForm({
   handleChange,
@@ -10,7 +10,6 @@ function ReservationForm({
 }) {
   return (
     <div className="container" style={{ width: "60%" }}>
-      {/* <h1 style={{textAlign:"center"}} className="mb-3">New Reservation</h1> */}
       <form onSubmit={handleSubmit}>
         <div className="form-group row">
           <label className="col-sm-2" htmlFor="first_name">
@@ -118,19 +117,18 @@ function ReservationForm({
           </div>
         </div>
         <div className="form-group mt-3 mb-4 d-flex justify-content-end">
-        <button type="submit" className="btn btn-info mr-3">
-          <GiConfirmed className="mb-1"/> Submit
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={handleCancel}
-        >
-          < GiCancel className="mb-1" /> Cancel
-        </button>
-      </div>
+          <button type="submit" className="btn btn-info mr-3">
+            <GiConfirmed className="mb-1" /> Submit
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleCancel}
+          >
+            <GiCancel className="mb-1" /> Cancel
+          </button>
+        </div>
       </form>
-    
     </div>
   );
 }

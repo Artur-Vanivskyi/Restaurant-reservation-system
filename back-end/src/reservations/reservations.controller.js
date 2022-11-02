@@ -26,7 +26,6 @@ const VALID_PROPERTIES = [
   "updated_at",
 ];
 
-
 async function list(req, res) {
   const { date, mobile_number } = req.query;
   const reservation = await (mobile_number
@@ -192,7 +191,7 @@ function statusNotFinished(req, res, next) {
   next();
 }
 
-function read(req, res, next) {
+function read(req, res) {
   res.status(200).json({ data: res.locals.reservation });
 }
 
@@ -201,7 +200,7 @@ async function create(req, res) {
   res.status(201).json({ data: reservation });
 }
 
-async function update(req, res, next) {
+async function update(req, res) {
   const updatedReservation = {
     ...req.body.data,
     reservation_id: res.locals.reservation.reservation_id,
@@ -210,7 +209,7 @@ async function update(req, res, next) {
   res.json({ data: reservation });
 }
 
-async function updateStatus(req, res, next) {
+async function updateStatus(req, res) {
   const { reservation_id } = req.params;
   const { status } = req.body.data;
   const data = await service.updateStatus(reservation_id, status);

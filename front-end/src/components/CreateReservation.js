@@ -34,10 +34,10 @@ function CreateReservation() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const abortController = new AbortController();
-    setFormErrors([])
+    setFormErrors([]);
     const formDataFormated = { ...formData, people: Number(formData.people) };
 
-    //---------------- Validation for fronend to deisplay double message-------------------//
+    //---------------- Validation for fronend to display double message-------------------//
 
     function dateNotTuesday(dateString) {
       const date = new Date(dateString);
@@ -72,22 +72,23 @@ function CreateReservation() {
       });
     }
     if (formData.people < 1) {
-      errors.push({message: "# of people must be greater than 1"})
+      errors.push({ message: "# of people must be greater than 1" });
     }
 
     setFormErrors(errors);
 
     createReservation(formDataFormated, abortController.signal)
-      .then(()=> {
-        history.push(`/dashboard?date=${formData.reservation_date}`)})
+      .then(() => {
+        history.push(`/dashboard?date=${formData.reservation_date}`);
+      })
       .catch((err) => console.log(err));
 
     return () => abortController.abort();
   };
 
   let displayErrors = formErrors.map((error) => (
-<ErrorAlert key={error.message} error={error} />
-  ))
+    <ErrorAlert key={error.message} error={error} />
+  ));
 
   return (
     <div>

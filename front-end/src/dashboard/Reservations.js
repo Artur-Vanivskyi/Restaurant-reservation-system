@@ -17,7 +17,6 @@ function Reservations({ reservation, loadReservations}) {
   } = reservation;
 
   const handleCancel = (event) => {
-    // event.preventDefault();
     if (
       window.confirm(
         "Do you want to cancel this reservation? This cannot be undone."
@@ -37,7 +36,6 @@ function Reservations({ reservation, loadReservations}) {
   };
 
   return (
-    
     <div className="card border-info mb-4 mr-3 col-4 p-0" style={{ maxWidth: "30rem"}}>
       <h5 className="card-header">
         Reservation for: {first_name}, {last_name}
@@ -98,7 +96,6 @@ function Reservations({ reservation, loadReservations}) {
         </div>
       </div>
     </div>
-   
   );
 }
 

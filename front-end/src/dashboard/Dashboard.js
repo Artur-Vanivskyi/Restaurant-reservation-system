@@ -103,7 +103,6 @@ function Dashboard({ date }) {
           <h3 className="mb-0">Reservations for date {date}</h3>
         </div>
       </div>
-
       <div className="container">
         <div className="row">
           <div className="col-sm-6">

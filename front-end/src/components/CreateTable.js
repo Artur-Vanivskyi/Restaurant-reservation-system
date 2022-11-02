@@ -37,20 +37,20 @@ function CreateTable() {
       await createTable(formDataFormated, abortController.signal);
       history.push("/dashboard");
     } catch (err) {
-      setTableErrors(err)
+      setTableErrors(err);
     }
     return () => abortController.abort();
   };
 
   return (
     <>
-    <TableForm
-      handleCancel={handleCancel}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      formData={formData}
-    />
-    <ErrorAlert error={tableErrors} />
+      <TableForm
+        handleCancel={handleCancel}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        formData={formData}
+      />
+      <ErrorAlert error={tableErrors} />
     </>
   );
 }

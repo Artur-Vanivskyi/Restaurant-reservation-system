@@ -55,8 +55,6 @@ function Seat() {
     setTableId(target.value);
   };
 
-  //const displayErrors = errors && <ErrorAlert error={errors} />;
-
   return (
     <div className="container">
       <div className="row justify-content-center mb-3">
@@ -86,11 +84,9 @@ function Seat() {
           </div>
         </div>
       </div>
-
       <div className="row justify-content-center">
         <ErrorAlert error={reservationsErrors} />
         <ErrorAlert error={tablesErrors} />
-
         <form className="form-inline" onSubmit={handleSubmit}>
           <h3>Available Tables: </h3>
           <div className="mr-3 ml-2">
