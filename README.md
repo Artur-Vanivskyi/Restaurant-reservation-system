@@ -52,6 +52,8 @@ You can edit any of the reservations that have not been seated by clicking on th
 ### Cancel Reservation
 User has the ability to cancel any reservation that has been created and yet to be seated. Clicking on the `Cancel` button at the bottom of each reservation card will generate a Window Confirmation dialog box and will be asking the user to confirm the cancellation. 
 
+![Cancel Reservation](/assets/CancelReservation.png)
+
 ### Seat Reservation
 To seat a reservation, simply click on the `Seat` button, this will redirect the user to a new page where the user can view the reservation party size. It will also display to the user a dropdown table which will list all of the tables and the table's max seating. 
 
