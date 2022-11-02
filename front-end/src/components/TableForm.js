@@ -1,6 +1,4 @@
 import React from "react";
-import { GiCancel } from "react-icons/gi";
-import { GiConfirmed } from "react-icons/gi";
 
 function TableForm({ handleCancel, handleChange, handleSubmit, formData }) {
   return (
@@ -44,14 +42,14 @@ function TableForm({ handleCancel, handleChange, handleSubmit, formData }) {
         </div>
         <div className="form-group mt-3 mb-4 d-flex justify-content-end">
           <button className="btn btn-info mx-2" type="submit">
-            <GiConfirmed className="mb-1" /> Submit
+          <span className="oi oi-circle-check"></span> Submit
           </button>
           <button
             type="button"
             className="btn btn-secondary"
             onClick={handleCancel}
           >
-            <GiCancel className="mb-1" /> Cancel
+            <span className="oi oi-circle-x mr-1"></span> Cancel
           </button>
         </div>
       </form>

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
 import { listTables, readReservation, seatReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import { GiCancel } from "react-icons/gi";
-import { GiConfirmed } from "react-icons/gi";
+
 
 function Seat() {
   const { reservation_id } = useParams();
@@ -97,14 +96,14 @@ function Seat() {
           </div>
           <div>
             <button type="submit" className="btn btn-info mr-3">
-              <GiConfirmed className="mb-1" /> Submit
+            <span className="oi oi-circle-check"></span> Submit
             </button>
             <button
               type="button"
               className="btn btn-secondary"
               onClick={handleCancel}
             >
-              <GiCancel className="mb-1" /> Cancel
+              <span className="oi oi-circle-x"></span> Cancel
             </button>
           </div>
         </form>

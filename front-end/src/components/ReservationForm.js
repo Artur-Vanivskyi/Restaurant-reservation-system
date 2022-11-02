@@ -1,6 +1,4 @@
 import React from "react";
-import { GiCancel } from "react-icons/gi";
-import { GiConfirmed } from "react-icons/gi";
 
 function ReservationForm({
   handleChange,
@@ -118,14 +116,14 @@ function ReservationForm({
         </div>
         <div className="form-group mt-3 mb-4 d-flex justify-content-end">
           <button type="submit" className="btn btn-info mr-3">
-            <GiConfirmed className="mb-1" /> Submit
+            <span className="oi oi-circle-check"></span> Submit
           </button>
           <button
             type="button"
             className="btn btn-secondary"
             onClick={handleCancel}
           >
-            <GiCancel className="mb-1" /> Cancel
+            <span className="oi oi-circle-x mr-1"></span> Cancel
           </button>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import React from "react";
 import { unseatTable } from "../utils/api";
-import { MdDone } from 'react-icons/md'
+
 
 function Tables({ table, loadDashboard }) {
 
@@ -50,7 +50,7 @@ function Tables({ table, loadDashboard }) {
                 className="btn btn-info"
                 onClick={handleFinish}
               >
-                <MdDone /> Finish
+                <span className="oi oi-circle-check"></span> Finish
               </button>
             ) : null}
           </div>

@@ -7,11 +7,6 @@ import { previous, next, today } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import Tables from "./Tables";
 
-import { GrPrevious, GrNext } from "react-icons/gr";
-import { MdToday } from "react-icons/md";
-import { BsCheckLg } from "react-icons/bs";
-import { FaCheckCircle } from "react-icons/fa";
-
 /**
  * Defines the dashboard page.
  * @param date
@@ -82,7 +77,7 @@ function Dashboard({ date }) {
             className="btn btn-info mr-3"
             onClick={handlePrevious}
           >
-            <GrPrevious className="mb-1" />
+            <span className="oi oi-action-undo"></span>
             {"\n"}
             Previous
           </button>
@@ -92,11 +87,11 @@ function Dashboard({ date }) {
             onClick={handleToday}
           >
             Today{"\n"}
-            <MdToday />
+            <span className="oi oi-calendar"></span>
           </button>
           <button type="button" className="btn btn-info" onClick={handleNext}>
             Next {"\n"}
-            <GrNext className="mb-1" />
+            <span className="oi oi-action-redo"></span>
           </button>
         </div>
         <div className="p-2 bd-highlight ">
@@ -108,7 +103,7 @@ function Dashboard({ date }) {
           <div className="col-sm-6">
             <h2 className="row justify-content-center">
               Reservation List
-              <BsCheckLg className="ml-3" />
+              <span className="oi oi-check ml-3"></span>
             </h2>
             <ErrorAlert error={reservationsError} />
             {reservations.length === 0 && (
@@ -120,7 +115,7 @@ function Dashboard({ date }) {
           </div>
           <div className="col-sm-6">
             <h2 className="row justify-content-center">
-              Table List <FaCheckCircle className="ml-3" />
+              Table List <span className="oi oi-circle-check ml-3"></span>
             </h2>
             <ErrorAlert error={tablesErrors} />
             {displayTables}

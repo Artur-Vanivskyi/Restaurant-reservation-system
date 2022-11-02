@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import Reservations from "../dashboard/Reservations";
-import { FaSearchPlus } from "react-icons/fa";
 import "./search.css";
 
 function Search() {
@@ -71,7 +70,7 @@ function Search() {
           />
         </div>
         <button type="submit" className="btn btn-info mb-2">
-          <FaSearchPlus className="mb-1" /> {"\n"} Find
+          <span className="oi oi-zoom-in"></span> {"\n"} Find
         </button>
       </form>
       <div className="visible_number">

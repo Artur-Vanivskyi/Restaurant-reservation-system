@@ -1,8 +1,6 @@
 import React from "react";
 import { updateReservationStatus } from "../utils/api";
-import {GiCancel} from 'react-icons/gi';
-import {GiConfirmed} from 'react-icons/gi';
-import {FiEdit2} from 'react-icons/fi'
+
 
 function Reservations({ reservation, loadReservations}) {
   const {
@@ -67,7 +65,7 @@ function Reservations({ reservation, loadReservations}) {
                 role="button"
                 className="btn btn-info"
               >
-                <GiConfirmed className="mb-1" /> Seat
+                <span className="oi oi-circle-check"></span> Seat
               </a>
             )}
           </div>
@@ -78,7 +76,7 @@ function Reservations({ reservation, loadReservations}) {
                 role="button"
                 className="btn btn-secondary"
               >
-                <FiEdit2 className="mb-1" /> Edit
+                <span className="oi oi-pencil"></span> Edit
               </a>
             )}
           </div>
@@ -89,7 +87,7 @@ function Reservations({ reservation, loadReservations}) {
                 className="btn btn-secondary"
                 onClick={handleCancel}
               >
-               <GiCancel className="mb-1"/> Cancel
+               <span className="oi oi-circle-x"></span> Cancel
               </button>
             )}
           </div>
