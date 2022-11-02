@@ -31,7 +31,7 @@ function EditReservation() {
   // }
 
   // useEffect(loadReservations, [reservation_id]);
-
+//comment
   useEffect(() => {
     async function loadReservations() {
       console.log("line 39", reservation_id);
