@@ -20,28 +20,14 @@ function EditReservation() {
   const [formData, setFormData] = useState({ ...initialFormState });
   const [formErrors, setFormErrors] = useState(null);
 
-  // useEffect(loadReservations, [reservation_id]);
-
-  // function loadReservations() {
-  //   const abortController = new AbortController();
-  //   readReservation(reservation_id, abortController.signal)
-  //     .then(setFormData)
-  //     .catch(setFormErrors);
-  //   return () => abortController.abort();
-  // }
-
-  // useEffect(loadReservations, [reservation_id]);
-//comment
   useEffect(() => {
     async function loadReservations() {
-      console.log("line 39", reservation_id);
       const abortController = new AbortController();
       try {
         const reservation = await readReservation(
           reservation_id,
           abortController.signal
         );
-        console.log("line 46", reservation);
         setFormData(reservation);
       } catch (error) {
         setFormErrors(error);
@@ -49,8 +35,7 @@ function EditReservation() {
       return () => abortController.abort();
     }
     loadReservations();
-  },[reservation_id])
-  
+  }, [reservation_id]);
 
   const formDataFormated = { ...formData, people: Number(formData.people) };
 
